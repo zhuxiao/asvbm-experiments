@@ -192,7 +192,9 @@ Additionally, basic metrics for different structural variant (SV) size ranges we
 Variations are categorized into seven size regions and metrics are computed for comprehensive evaluation for different detection methods within each region. The evaluation results are as followed:
 
 <div style="text-align: center;">
-    <img src="img\different_range.png" alt="Evaluation results of different SV size regions" style="display: inline-block; margin-right: 20px; text-align: center;" width="800"/>
+    <div style="display: inline-block;">
+        <img src="img\different_range.png" alt="Evaluation results of different SV size regions" style="max-width: 100%;" width="800"/>
+    </div>
 </div>
 
 
@@ -311,9 +313,7 @@ The SV reference region size statistics for benchmark set: Total SVs number：74
 (2) Statistics of the count of different SV lengths in the user-called set (ASVCLR):
 
 The SV reference region size statistics before filtering for user-called set (ASVCLR): Total SVs number：50674
-
 The SV reference region size statistics after filtering for user-called set (ASVCLR): Total SVs number：50674                                                                                          
-
 The result statistics before filtering are shown in the left figure, and the result statistics after filtering are shown in the right figure:
 
 <div style="text-align: center;">
@@ -326,9 +326,7 @@ The result statistics before filtering are shown in the left figure, and the res
 (3) Statistics of the count of different SV lengths in the user-called set (cuteSV):
 
 The SV reference region size statistics before filtering for user-called set (cuteSV): Total SVs number：44937
-
 The SV reference region size statistics after filtering for user-called set (cuteSV): Total SVs number：44928
-
 The result statistics before filtering are shown in the left figure, and the result statistics after filtering are shown in the right figure:
 
 <div style="text-align: center;">
@@ -341,9 +339,7 @@ The result statistics before filtering are shown in the left figure, and the res
 (4) Statistics of the count of different SV lengths in the user-called set (pbsv):
 
 The SV reference region size statistics before filtering for user-called set (pbsv): Total SVs number：52807
-
 The SV reference region size statistics after filtering for user-called set (pbsv): Total SVs number：52741
-
 The result statistics before filtering are shown in the left figure, and the result statistics after filtering are shown in the right figure:
 
 <div style="text-align: center;">
@@ -358,9 +354,7 @@ The result statistics before filtering are shown in the left figure, and the res
 (5) Statistics of the count of different SV lengths in the user-called set (Sniffles):
 
 The SV reference region size statistics before filtering for user-called set (Sniffles): Total SVs number：54545
-
 The SV reference region size statistics after filtering for user-called set (Sniffles): Total SVs number：54458
-
 The result statistics before filtering are shown in the left figure, and the result statistics after filtering are shown in the right figure:
 
 <div style="text-align: center;">
@@ -372,9 +366,7 @@ The result statistics before filtering are shown in the left figure, and the res
 (6) Statistics of the count of different SV lengths in the user-called set (SVIM):
 
 The SV reference region size statistics before filtering for user-called set (SVIM): Total SVs number：116615
-
 The SV reference region size statistics after filtering for user-called set (SVIM): Total SVs number：116427
-
 The result statistics before filtering are shown in the left figure, and the result statistics after filtering are shown in the right figure:
 
 <div style="text-align: center;">
