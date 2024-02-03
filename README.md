@@ -314,15 +314,13 @@ The SV reference region size statistics before filtering for user-called set (AS
 
 The SV reference region size statistics after filtering for user-called set (ASVCLR): Total SVs number：50674                                                                                          
 
-The result statistics before filtering are shown in (a), and the result statistics after filtering are shown in (b):
+The result statistics before filtering are shown in the left figure, and the result statistics after filtering are shown in the right figure:
 
 <div style="text-align: center;">
     <div style="display: inline-block; text-align: center; margin-right: 20px;">
-        <p>(a)</p>
         <img src="img\ref_reg_size_ASVCLR_before.png" alt="Performance comparison between different tools" width="450"/>
     </div>
     <div style="display: inline-block; text-align: center;">
-        <p>(b)</p>
         <img src="img\ref_reg_size_ASVCLR_after.png" alt="Benchmark results between different tools" width="450"/>
     </div>
 </div>                                                                                                            
