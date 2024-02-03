@@ -192,7 +192,7 @@ Additionally, basic metrics for different structural variant (SV) size ranges we
 Variations are categorized into seven size regions and metrics are computed for comprehensive evaluation for different detection methods within each region. The evaluation results are as followed:
 
 <div style="text-align: center;">
-    <img src="img\different_range.png" alt="Evaluation results of different SV size regions style="display: inline-block; margin-right: 20px;" width="500"/>
+    <img src="img\different_range.png" alt="Evaluation results of different SV size regions" style="display: inline-block; margin-right: 20px;" width="800"/>
 </div>
 
 
