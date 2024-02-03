@@ -401,14 +401,10 @@ The SV reference region size statistics after filtering for user-called set (Sni
 The result statistics before filtering are shown in (a), and the result statistics after filtering are shown in (b):
 
 <div style="text-align: center;">
-    <div style="display: inline-block; text-align: center; margin-right: 20px;">
         <p>(a)</p>
         <img src="img\ref_reg_size_SVIM_before.png" alt="Performance comparison between different tools" width="450"/>
-    </div>
-    <div style="display: inline-block; text-align: center;">
         <p>(b)</p>
         <img src="img\ref_reg_size_SVIM_after.png" alt="Benchmark results between different tools" width="450"/>
-    </div>
 </div>
 
 
