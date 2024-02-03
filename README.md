@@ -303,7 +303,7 @@ Additionally, the distribution of the number of variations in the reference set 
 The SV reference region size statistics for benchmark set: Total SVs number：74012
 
 <div style="text-align: center;">
-    <img src="img\ref_reg_size_benchmark.png" alt="Performance comparison between different tools" style="max-width: 100%; display: block; margin: 0 auto; text-align: center;" width="500"/>
+    <img src="img\ref_reg_size_benchmark.png" alt="Performance comparison between different tools" style="display: block; margin: 0 auto; text-align: center;" width="500"/>
 </div>
 
 
