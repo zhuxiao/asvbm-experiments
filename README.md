@@ -370,11 +370,11 @@ The result statistics before filtering are shown in the left figure, and the res
 <div style="text-align: center;">
     <div style="display: inline-block; text-align: left; margin-right: 20px;">
         <p>(a)</p>
-        <img src="img\ref_reg_size_SVIM_before.png" alt="Performance comparison between different tools" width="350"/>
+        <img src="img\ref_reg_size_SVIM_before.png" alt="Performance comparison between different tools" width="350px"/>
     </div>
     <div style="display: inline-block; text-align: left;">
         <p>(b)</p>
-        <img src="img\ref_reg_size_SVIM_after.png" alt="Benchmark results between different tools" width="350"/>
+        <img src="img\ref_reg_size_SVIM_after.png" alt="Benchmark results between different tools" width="350px"/>
     </div>
 </div>
 
