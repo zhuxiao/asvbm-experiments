@@ -148,8 +148,8 @@ The evaluation results are shown in the table:
 The figure below displays the evaluation results of different detection methods, including two categories of basic metrics.  Detailed statistics can be found in the corresponding text files within the respective folders.
 
 <div style="text-align: center;">
-    <img src="img/evaluation_result.png" alt="Performance comparison between different tools" style="display: inline-block; margin-right: 20px;" width="500"/>
-    <img src="img\result_classification.png" alt="Benchmark results between different tools" style="display: inline-block;" width="500"/>
+    <img src="img/evaluation_result.png" alt="Performance comparison between different tools" style="display: inline-block; margin-right: 20px;" width="350"/>
+    <img src="img\result_classification.png" alt="Benchmark results between different tools" style="display: inline-block;" width="350"/>
 </div>
 
 
