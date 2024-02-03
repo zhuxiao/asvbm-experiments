@@ -382,11 +382,11 @@ The result statistics before filtering are shown in (a), and the result statisti
 <div style="text-align: center;">
     <div style="display: inline-block; text-align: left; margin-right: 20px;">
         <p>(a)</p>
-        <img src="img\ref_reg_size_Sniffles_before.png" alt="Performance comparison between different tools" width="450"/>
+        <img src="img\ref_reg_size_Sniffles_before.png" alt="Performance comparison between different tools" width="300"/>
     </div>
     <div style="display: inline-block; text-align: left;">
         <p>(b)</p>
-        <img src="img\ref_reg_size_Sniffles_after.png" alt="Benchmark results between different tools" width="450"/>
+        <img src="img\ref_reg_size_Sniffles_after.png" alt="Benchmark results between different tools" width="300"/>
     </div>
 </div>
 
