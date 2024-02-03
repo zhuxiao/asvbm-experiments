@@ -303,7 +303,7 @@ Additionally, the distribution of the number of variations in the reference set 
 The SV reference region size statistics for benchmark set: Total SVs number：74012
 
 <div style="text-align: center;">
-    <img src="img\ref_reg_size_benchmark.png" alt="Performance comparison between different tools" style="max-width: 100%; display: block; margin: 0 auto;" width="450"/>
+    <img src="img\ref_reg_size_benchmark.png" alt="Performance comparison between different tools" style="max-width: 100%; display: block; margin: 0 auto; text-align: center;" width="500"/>
 </div>
 
 
@@ -342,8 +342,8 @@ The result statistics before filtering are shown in the left figure, and the res
 
 <div style="text-align: center;">
    
-    <img src="img\ref_reg_size_pbsv_before.png" alt="Performance comparison between different tools" style="display: inline-block; margin-right: 20px;" width="450"/>
-    <img src="img\ref_reg_size_pbsv_after.png" alt="Benchmark results between different tools" width="450"/>
+    <img src="img\ref_reg_size_pbsv_before.png" alt="Performance comparison between different tools" style="display: inline-block; margin-right: 20px;" width="400"/>
+    <img src="img\ref_reg_size_pbsv_after.png" alt="Benchmark results between different tools" width="400"/>
  
 </div>
 
@@ -368,14 +368,8 @@ The SV reference region size statistics after filtering for user-called set (SVI
 The result statistics before filtering are shown in the left figure, and the result statistics after filtering are shown in the right figure:
 
 <div style="text-align: center;">
-    <div style="display: inline-block; text-align: left; margin-right: 20px;">
-        <p>(a)</p>
-        <img src="img\ref_reg_size_SVIM_before.png" alt="Performance comparison between different tools" width="350px"/>
-    </div>
-    <div style="display: inline-block; text-align: left;">
-        <p>(b)</p>
-        <img src="img\ref_reg_size_SVIM_after.png" alt="Benchmark results between different tools" width="350px"/>
-    </div>
+    <img src="img\ref_reg_size_SVIM_before.png" alt="Performance comparison between different tools" style="display: inline-block; margin-right: 20px;" width="400"/>
+    <img src="img\ref_reg_size_SVIM_after.png" alt="Benchmark results between different tools" width="400"/>
 </div>
 
  More detailed result information can be found in the `evaluation_report.html` after completing the assessment following the above steps.
