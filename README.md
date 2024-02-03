@@ -317,12 +317,8 @@ The SV reference region size statistics after filtering for user-called set (ASV
 The result statistics before filtering are shown in the left figure, and the result statistics after filtering are shown in the right figure:
 
 <div style="text-align: center;">
-    <div style="display: inline-block; text-align: center; margin-right: 20px;">
-        <img src="img\ref_reg_size_ASVCLR_before.png" alt="Performance comparison between different tools" width="450"/>
-    </div>
-    <div style="display: inline-block; text-align: center;">
+        <img src="img\ref_reg_size_ASVCLR_before.png" alt="Performance comparison between different tools"  style="display: inline-block; margin-right: 20px;" width="450"/>
         <img src="img\ref_reg_size_ASVCLR_after.png" alt="Benchmark results between different tools" width="450"/>
-    </div>
 </div>                                                                                                            
 
 
