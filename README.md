@@ -192,7 +192,7 @@ Additionally, basic metrics for different structural variant (SV) size ranges we
 Variations are categorized into seven size regions and metrics are computed for comprehensive evaluation for different detection methods within each region. The evaluation results are as followed:
 
 <div style="text-align: center;">
-    <img src="img\different_range.png" alt="Evaluation results of different SV size regions" style="display: inline-block; margin-right: 20px;" width="800"/>
+    <img src="img\different_range.png" alt="Evaluation results of different SV size regions" style="display: inline-block; margin-right: 20px; text-align: center;" width="800"/>
 </div>
 
 
@@ -317,11 +317,11 @@ The SV reference region size statistics after filtering for user-called set (ASV
 The result statistics before filtering are shown in (a), and the result statistics after filtering are shown in (b):
 
 <div style="text-align: center;">
-    <div style="display: inline-block; text-align: left; margin-right: 20px;">
+    <div style="display: inline-block; text-align: center; margin-right: 20px;">
         <p>(a)</p>
         <img src="img\ref_reg_size_ASVCLR_before.png" alt="Performance comparison between different tools" width="450"/>
     </div>
-    <div style="display: inline-block; text-align: left;">
+    <div style="display: inline-block; text-align: center;">
         <p>(b)</p>
         <img src="img\ref_reg_size_ASVCLR_after.png" alt="Benchmark results between different tools" width="450"/>
     </div>
@@ -338,11 +338,11 @@ The SV reference region size statistics after filtering for user-called set (cut
 The result statistics before filtering are shown in (a), and the result statistics after filtering are shown in (b):
 
 <div style="text-align: center;">
-    <div style="display: inline-block; text-align: left; margin-right: 20px;">
+    <div style="display: inline-block; text-align: center; margin-right: 20px;">
         <p>(a)</p>
         <img src="img\ref_reg_size_cuteSV_before.png" alt="Performance comparison between different tools" width="450"/>
     </div>
-    <div style="display: inline-block; text-align: left;">
+    <div style="display: inline-block; text-align: center;">
         <p>(b)</p>
         <img src="img\ref_reg_size_cuteSV_after.png" alt="Benchmark results between different tools" width="450"/>
     </div>
@@ -359,11 +359,11 @@ The SV reference region size statistics after filtering for user-called set (pbs
 The result statistics before filtering are shown in (a), and the result statistics after filtering are shown in (b):
 
 <div style="text-align: center;">
-    <div style="display: inline-block; text-align: left; margin-right: 20px;">
+    <div style="display: inline-block; text-align: center; margin-right: 20px;">
         <p>(a)</p>
         <img src="img\ref_reg_size_pbsv_before.png" alt="Performance comparison between different tools" width="450"/>
     </div>
-    <div style="display: inline-block; text-align: left;">
+    <div style="display: inline-block; text-align: center;">
         <p>(b)</p>
         <img src="img\ref_reg_size_pbsv_after.png" alt="Benchmark results between different tools" width="450"/>
     </div>
@@ -380,13 +380,13 @@ The SV reference region size statistics after filtering for user-called set (Sni
 The result statistics before filtering are shown in (a), and the result statistics after filtering are shown in (b):
 
 <div style="text-align: center;">
-    <div style="display: inline-block; text-align: left; margin-right: 20px;">
+    <div style="display: inline-block; text-align: center; margin-right: 20px;">
         <p>(a)</p>
-        <img src="img\ref_reg_size_Sniffles_before.png" alt="Performance comparison between different tools" width="300"/>
+        <img src="img\ref_reg_size_Sniffles_before.png" alt="Performance comparison between different tools" width="450"/>
     </div>
-    <div style="display: inline-block; text-align: left;">
+    <div style="display: inline-block; text-align: center;">
         <p>(b)</p>
-        <img src="img\ref_reg_size_Sniffles_after.png" alt="Benchmark results between different tools" width="300"/>
+        <img src="img\ref_reg_size_Sniffles_after.png" alt="Benchmark results between different tools" width="450"/>
     </div>
 </div>
 
@@ -401,11 +401,11 @@ The SV reference region size statistics after filtering for user-called set (Sni
 The result statistics before filtering are shown in (a), and the result statistics after filtering are shown in (b):
 
 <div style="text-align: center;">
-    <div style="display: inline-block; text-align: left; margin-right: 20px;">
+    <div style="display: inline-block; text-align: center; margin-right: 20px;">
         <p>(a)</p>
         <img src="img\ref_reg_size_SVIM_before.png" alt="Performance comparison between different tools" width="450"/>
     </div>
-    <div style="display: inline-block; text-align: left;">
+    <div style="display: inline-block; text-align: center;">
         <p>(b)</p>
         <img src="img\ref_reg_size_SVIM_after.png" alt="Benchmark results between different tools" width="450"/>
     </div>
