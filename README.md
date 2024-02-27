@@ -1,5 +1,5 @@
 # SV_STAT experiment
-In our experiments, we used the high accuracy of the PacBio sequencing platform in CCS mode, combined with NGMLR's alignment capability for long-read data and 30X the coverage depth.    This approach provides a well-balanced strategy for detecting variants. The identification results of HG002 CCS data were evaluated using ASVCLR(v1.4.0), cuteSV (v2.0.3), pbsv (v2.9.0), Sniffles (v2.0.2) and SVIM(v2.0.0), respectively. The benchmark dataset was the high-confidence HG002 dataset created by the Genome in a Bottle Consortium (GIAB). More specific experimental information was shown as follows.
+In our experiments, we used the high accuracy of the PacBio sequencing platform in CCS mode, combined with NGMLR's alignment capability for long-read data and 30X the coverage depth. This approach provides a well-balanced strategy for detecting variants. The identification results of HG002 CCS data were evaluated using ASVCLR(v1.4.0), cuteSV (v2.0.3), pbsv (v2.9.0), Sniffles (v2.0.2) and SVIM(v2.0.0), respectively. The benchmark dataset was the high-confidence HG002 dataset created by the Genome in a Bottle Consortium (GIAB). More specific experimental information was shown as follows.
 ## Prerequisites
 
 ### Tools
@@ -133,7 +133,7 @@ We used -T option to specify the name of the detection method and -C option to s
 
 ### Performance evaluation
 
-Typically, evaluation results are saved within the `Tier1_eval` directory, with each tool's results saved in the subfolder named after the respective tool.  Additionally, a local HTML file (`evaluation_results.html`) is generated to store the evaluation results for each user-called set.
+Typically, evaluation results are saved within the `Tier1_eval` directory, with each tool's results saved in the subfolder named after the respective tool.  Additionally, a local HTML file (`sv_stat_reports.html`) is generated to store the evaluation results for each user-called set.
 
 The evaluation results are shown in the table:
 
