@@ -19,14 +19,14 @@ We used the following detection methods to variant calling. In addition to the v
 
 ```sh
 # Get ASVCLR 
-$ wget -c https://github.com/zhuxiao/asvclr/releases/download/1.3.0/asvclr_1.3.0.tar.xz
-$ tar -xf asvclr_1.3.0.tar.xz
-$ cd asvclr_1.3.0/
+$ wget -c https://github.com/zhuxiao/asvclr/releases/download/1.4.0/asvclr_1.4.0.tar.xz
+$ tar -xf asvclr_1.4.0.tar.xz
+$ cd asvclr_1.4.0/
 $ ./auto_gen.sh
 # Or get from github
 $ git clone https://github.com/zhuxiao/asvclr.git
-$ tar -xf asvclr_1.3.0.tar.xz
-$ cd asvclr_1.3.0/
+$ tar -xf asvclr_1.4.0.tar.xz
+$ cd asvclr_1.4.0/
 $ ./auto_gen.sh
 ```
 
@@ -71,7 +71,7 @@ $ samtools faidx hs37d5.fa 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21
 
 ## HG002
 
-Download [HG002 PacBio CCS](https://www.ncbi.nlm.nih.gov/sra/SRX5327410) data.  After aligning with ngmlr, convert them into bam files using samtools, sort and create index. For convenience, we provide a shell script and a list of accession to help you obtain the fastq file (see `doc` folder). Significantly, you need to ensure that the file and the script are in the same folder.
+Download [HG002 PacBio CCS](https://www.ncbi.nlm.nih.gov/sra/SRX5327410) data.  After aligning with ngmlr, convert them into bam files using samtools, sort and create index. For convenience, we provide a shell script and a list of accession to help you obtain the fastq file (see `script` folder). Significantly, you need to ensure that the file and the script are in the same folder.
 
 ```sh
 $ ./prefetch_fastq.sh
