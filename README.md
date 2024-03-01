@@ -56,7 +56,7 @@ $ tar -zxvf sratoolkit.3.0.10-ubuntu64.tar.gz
 $ cd sratoolkit.3.0.10-ubuntu64
 $ ln -s prefetch /usr/local/bin/prefetch
 $ ln -s fastq-dump /usr/local/bin/fastq-dump
-$ ln -s fasterq-dump /usr/local/bin/fasterq-dumps
+$ ln -s fasterq-dump /usr/local/bin/fasterq-dump
 ```
 
 And the binary file `prefetch`、 `fastq-dump`  and `fasterq-dump` will be output into the folder `bin` in this package directory.
