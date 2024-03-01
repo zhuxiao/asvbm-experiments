@@ -47,10 +47,16 @@ $ make
 $ wget -c https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/3.0.10/sratoolkit.3.0.10-centos_linux64.tar.gz
 $ tar -zxvf sratoolkit.3.0.10-centos_linux64.tar.gz
 $ cd sratoolkit.3.0.10-centos/bin/
+$ ln -s prefetch /usr/local/bin/prefetch
+$ ln -s fastq-dump /usr/local/bin/fastq-dump
+$ ln -s fasterq-dump /usr/local/bin/fasterq-dump
 # ubuntu
 $ wget -c https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/3.0.10/sratoolkit.3.0.10-ubuntu64.tar.gz
 $ tar -zxvf sratoolkit.3.0.10-ubuntu64.tar.gz
 $ cd sratoolkit.3.0.10-ubuntu64
+$ ln -s prefetch /usr/local/bin/prefetch
+$ ln -s fastq-dump /usr/local/bin/fastq-dump
+$ ln -s fasterq-dump /usr/local/bin/fasterq-dumps
 ```
 
 And the binary file `prefetch`、 `fastq-dump`  and `fasterq-dump` will be output into the folder `bin` in this package directory.
