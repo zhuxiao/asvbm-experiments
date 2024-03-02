@@ -7,7 +7,7 @@ In our experiments, we used the high accuracy of the PacBio sequencing platform 
 We used  [SV_STAT](https://github.com/zhuxiao/sv_stat) to evaluate variant calling results.
 
 ```sh
-$ wget -c https://github.com/zhuxiao/sv_stat/releases/download/0.8.0/sv_stat_0.9.0.tar.xz
+$ wget -c https://github.com/zhuxiao/sv_stat/releases/download/0.9.0/sv_stat_0.9.0.tar.xz
 $ tar -xf sv_stat_0.9.0.tar.xz
 $ cd sv_stat_0.9.0/
 $ ./autogen.sh
