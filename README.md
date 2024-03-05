@@ -139,7 +139,7 @@ We used -T option to specify the name of the detection method and -C option to s
 
 ### Performance evaluation
 
-Typically, evaluation results are saved within the `Tier1_eval` directory, with each tool's results saved in the subfolder named after the respective tool.  Additionally, a local HTML file (`sv_stat_reports.html`) is generated to store the evaluation results for each user-called set.
+Typically, evaluation results are saved within the `Tier1_eval` directory, with each tool's results saved in the subfolder named after the respective tool.  Additionally, a local HTML file (`sv_stat_reports.html`) is generated to store the evaluation results for each user-called set. Review the comprehensive evaluation results more conveniently through the `sv_stat_reports.pdf` file.
 
 The evaluation results are shown in the table:
 
