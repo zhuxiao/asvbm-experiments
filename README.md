@@ -1,5 +1,5 @@
 # SV_STAT experiment
-In our experiments, we used the high accuracy of the PacBio sequencing platform in CCS mode, combined with NGMLR's alignment capability for long-read data and 30X the coverage depth. This approach provides a well-balanced strategy for detecting variants. The identification results of HG002 CCS data were evaluated using ASVCLR(v1.4.0), cuteSV (v2.0.3), pbsv (v2.9.0), Sniffles (v2.0.2) and SVIM(v2.0.0), respectively. The benchmark dataset was the high-confidence HG002 dataset created by the Genome in a Bottle Consortium (GIAB). More specific experimental information was shown as follows.
+In our experiments, we used the high accuracy of the PacBio sequencing platform in CCS mode, combined with NGMLR's alignment capability for long-read data and 30X the coverage depth. This approach provides a well-balanced strategy for detecting variants. The identification results of HG002 CCS data were evaluated using ASVCLR(v1.4.0), cuteSV (v2.0.3), pbsv (v2.9.0), Sniffles2 (v2.0.2) and SVIM(v2.0.0), respectively. The benchmark dataset was the high-confidence HG002 dataset created by the Genome in a Bottle Consortium (GIAB). More specific experimental information was shown as follows.
 ## Prerequisites
 
 ### Tools
@@ -130,7 +130,7 @@ $ wget https://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/data/AshkenazimTrio/analysis/
 $ gunzip HG002_SVs_Tier1_v0.6.vcf.gz
 
 # Run sv_stat against the Tier1 callset and SV_STAT can evaluate multiple user-called sets simultaneously.
-$ sv_stat -m 50000 -T "ASVCLR;cuteSV;pbsv;Sniffles;SVIM" -C "1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16;17;18;19;20;21;22;X;Y" genome_variants.vcf output_cuteSV.vcf output_pbsv.vcf output_sniffles.vcf variants.vcf hs37d5.chroms.fa -o Tier1_eval
+$ sv_stat -m 50000 -T "ASVCLR;cuteSV;pbsv;Sniffles2;SVIM" -C "1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16;17;18;19;20;21;22;X;Y" genome_variants.vcf output_cuteSV.vcf output_pbsv.vcf output_sniffles.vcf variants.vcf hs37d5.chroms.fa -o Tier1_eval
 ```
 
 We used -T option to specify the name of the detection method and -C option to specify the set of chromosomes to be evaluated.  In this experiment, we evaluated the autosomes and sex chromosomes X/Y in the variation Identification results of different detection methods.
