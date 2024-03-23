@@ -1,10 +1,10 @@
 # SV_STAT experiment
-In our experiments, we used the high accuracy of the PacBio sequencing platform in CCS mode, combined with NGMLR's alignment capability for long-read data and 30X the coverage depth. This approach provides a well-balanced strategy for detecting variants. The identification results of HG002 CCS data were evaluated using ASVCLR(v1.4.0), cuteSV (v2.0.3), pbsv (v2.9.0), Sniffles2 (v2.0.2) and SVIM(v2.0.0), respectively. The benchmark dataset was the high-confidence HG002 dataset created by the Genome in a Bottle Consortium (GIAB). More specific experimental information was shown as follows.
+In our experiments, we used the high accuracy of the PacBio sequencing platform in CCS mode, combined with NGMLR's alignment capability for long-read data and 30X the coverage depth. This approach provides a well-balanced strategy for detecting variants. The identification results of HG002 CCS data were benchmarked using ASVCLR(v1.4.0), cuteSV (v2.0.3), pbsv (v2.9.0), Sniffles2 (v2.0.2) and SVIM(v2.0.0), respectively. The benchmark dataset was the high-confidence HG002 dataset created by the Genome in a Bottle Consortium (GIAB). More specific experimental information was shown as follows.
 ## Prerequisites
 
 ### Tools
 
-We used  [SV_STAT](https://github.com/zhuxiao/sv_stat) to evaluate variant calling results.
+We used  [SV_STAT](https://github.com/zhuxiao/sv_stat) to benchmark variant calling results.
 
 ```sh
 $ wget -c https://github.com/zhuxiao/sv_stat/releases/download/1.0.0/sv_stat_1.0.0.tar.xz
@@ -15,7 +15,7 @@ $ ./autogen.sh
 
 And the binary file `sv_stat` will be output into the folder `bin` in this package directory.
 
-We used the following detection methods to variant calling. In addition to the variation detection method included in this experiment, we also introduced a new variation detection tool ASVCLR and evaluated its variation identification results.
+We used the following detection methods to variant calling. In addition to the variation detection method included in this experiment, we also introduced a new variation detection tool ASVCLR and benchmarked its variation identification results.
 
 ```sh
 # Get ASVCLR 
@@ -63,7 +63,7 @@ And the binary file `prefetch`、 `fastq-dump`  and `fasterq-dump` will be outpu
 
 ### Data
 
-In our experimental evaluation we used hg19.
+In our experimental benchmarking, we used hg19.
 
 #### Download reference
 
@@ -77,7 +77,7 @@ $ samtools faidx hs37d5.fa 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21
 
 ## HG002
 
-Download [HG002 PacBio CCS](https://www.ncbi.nlm.nih.gov/sra/SRX5327410) data.  After aligning with ngmlr, convert them into bam files using samtools, sort and create index. For convenience, we provide a shell script and a list of accession to help you obtain the fastq file (see `script` folder). Significantly, you need to ensure that the file and the script are in the same folder.
+Download [HG002 PacBio CCS](https://www.ncbi.nlm.nih.gov/sra/SRX5327410) data.  After aligning with ngmlr, convert them into bam files using samtools, sort and create index. For convenience, we provide a shell script and a list of accessions to help you obtain the fastq file (see `script` folder). Significantly, you need to ensure that the file and the script are in the same folder.
 
 ```sh
 $ ./prefetch_fastq.sh SRR_Acc_List.txt SRR885_whole.fastq
@@ -122,26 +122,26 @@ You can get the following four results:
 
 ## GIAB analysis
 
-In this experiment, we used HG002_SVs_Tier1_v0.6.vcf as the gold benchmark set required for the evaluation of user-called sets, which can be downloaded as follows:
+In this experiment, we used HG002_SVs_Tier1_v0.6.vcf as the gold benchmark set required for the benchmarking of user-called sets, which can be downloaded as follows:
 
 ```sh
 # Get GIAB VCF Tier 1 
 $ wget https://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/data/AshkenazimTrio/analysis/NIST_SVs_Integration_v0.6/HG002_SVs_Tier1_v0.6.vcf.gz
 $ gunzip HG002_SVs_Tier1_v0.6.vcf.gz
 
-# Run sv_stat against the Tier1 callset and SV_STAT can evaluate multiple user-called sets simultaneously.
+# Run sv_stat against the Tier1 callset and SV_STAT can benchmark multiple user-called sets simultaneously.
 $ sv_stat -m 50000 -T "ASVCLR;cuteSV;pbsv;Sniffles2;SVIM" -C "1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16;17;18;19;20;21;22;X;Y" genome_variants.vcf output_cuteSV.vcf output_pbsv.vcf output_sniffles.vcf variants.vcf hs37d5.chroms.fa -o Tier1_eval
 ```
 
-We used -T option to specify the name of the detection method and -C option to specify the set of chromosomes to be evaluated.  In this experiment, we evaluated the autosomes and sex chromosomes X/Y in the variation Identification results of different detection methods.
+We used -T option to specify the name of the detection method and -C option to specify the set of chromosomes to be benchmarked.  In this experiment, we benchmarked the autosomes and sex chromosomes X/Y in the variation Identification results of different detection methods.
 
-## Evaluation results
+## Benchmarking results
 
-### Performance evaluation
+### Performance benchmarking
 
-Typically, evaluation results are saved within the `Tier1_eval` directory, with each tool's results saved in the subfolder named after the respective tool.  Additionally, a local HTML file (`sv_stat_reports.html`) is generated to store the evaluation results for each user-called set. Review the comprehensive evaluation results more conveniently through the `sv_stat_reports.pdf` file.
+Typically, benchmarking results are saved within the `Tier1_eval` directory, with each tool's results saved in the subfolder named after the respective tool.  Additionally, a local HTML file (`sv_stat_reports.html`) is generated to store the benchmarking results for each user-called set. Review the comprehensive benchmarking results more conveniently through the `sv_stat_reports.pdf` file.
 
-The evaluation results are shown in the table:
+The benchmarking results are shown in the table:
 
 |   Tool   |  SVs   | TP_benchmark | TP_user |  FP   |  FN   |  recall  | precision | F1  score |  Seqcons  |
 | :------: | :----: | :----------: | :-----: | :---: | :---: | :------: | :-------: | :-------: | :-------: |
@@ -151,7 +151,7 @@ The evaluation results are shown in the table:
 | Sniffles | 54545  |    44983     |  43114  | 10160 | 29029 | 0.607780 | 0.809288  | 0.694207  | 0.924712  |
 |   SVIM   | 116615 |    48028     |  47230  | 30995 | 25984 | 0.648922 | 0.603771  | 0.625533  | 0.958158  |
 
-The figure below displays the evaluation results of different detection methods, including two categories of basic metrics, where Seqcons represents the sequence consistency score calculated for matched SVs containing sequences.  Detailed statistics can be found in the corresponding text files within the respective folders.
+The figure below displays the benchmarking results of different detection methods, including two categories of basic metrics, where Seqcons represents the sequence consistency score calculated for matched SVs containing sequences.  Detailed statistics can be found in the corresponding text files within the respective folders.
 
 <div style="text-align: center;">
     <img src="img/evaluation_result.png" alt="Performance comparison between different tools" style="display: inline-block; margin-right: 20px;" width="400"/>
@@ -162,7 +162,7 @@ The figure below displays the evaluation results of different detection methods,
 
 ### Statistical results of deviation of overlapping variation
 
-Moreover, for regions with overlapping variations, the quantities of  region size ratio and center distance were statistically analyzed to  provide a more intuitive presentation of evaluation information. The statistical results are as follows:
+Moreover, for regions with overlapping variations, the quantities of  region size ratio and center distance were statistically analyzed to  provide a more intuitive presentation of benchmarking information. The statistical results are as follows:
 
 (1) Deviation statistics of center distance
 
@@ -189,13 +189,13 @@ The statistical results of the deviation of the region size ratio are as follows
 |   SVIM   |  8441   |   574   |  46891  |   691   |   750   |   265    |   1261    |    704     |  4842  |
 
 
-### Evaluation results for metrics of different SV size regions
+### Benchmarking results for metrics of different SV size regions
 
-Additionally, basic metrics for different structural variant (SV) size ranges were computed, primarily categorized into the following seven intervals. The results are showed as follow:
+Additionally, basic metrics for different structural variant (SV) size ranges were computed, primarily categorized into the following seven intervals. The results are shown as follows:
 
-(1) Evaluation results for metrics of different SV size regions with different methods
+(1) Benchmarking results for metrics of different SV size regions with different methods
 
-Variations are categorized into seven size regions and metrics are computed for comprehensive evaluation for different detection methods within each region. The evaluation results are as followed:
+Variations are categorized into seven size regions and metrics are computed for comprehensive benchmarking of different detection methods within each region. The benchmarking results are as follows:
 
 <div style="text-align: center;">
     <img src="img\different_range.png" alt="Evaluation results of different SV size regions" style="display: inline-block; margin: 0 auto; text-align: center;" width="800"/>
@@ -214,7 +214,7 @@ Variations are categorized into seven size regions and metrics are computed for 
 | 5001-10000bp |   138    |   138   |  116  |  198  | 0.410714 | 0.543307 | 0.467797 | 1.000000  |
 |   >10001bp   |    44    |   44    |  46  |  208  | 0.174603 | 0.488889  | 0.257310 | 1.000000  |
 
-The evaluation results of ASVCLR in different SV size regions show as follow with figures:
+The benchmarking results of ASVCLR in different SV size regions are shown as follows with figures:
 
 <div style="text-align: center;">
     <img src="img\evaluation_result_ASVCLR.png" alt="Performance comparison between different tools" style="display: inline-block; margin-right: 20px;" width="400"/>
@@ -234,7 +234,7 @@ The evaluation results of ASVCLR in different SV size regions show as follow wit
 | 5001-10000bp |   113    |   113   |  18  |  223  | 0.336310 | 0.862595  | 0.483940 | 1.000000  |
 |   >10001bp   |    39    |   40    |  43  |  213  | 0.154762 | 0.481925  | 0.235287 | 1.000000  |
 
-The evaluation results of cuteSV in different SV size regions show as follow with figures:
+The benchmarking results of cuteSV in different SV size regions are shown as follow with figures:
 
 <div style="text-align: center;">
     <img src="img\evaluation_result_cuteSV.png" alt="Performance comparison between different tools" style="display: inline-block; margin-right: 20px;" width="400"/>
@@ -254,7 +254,7 @@ The evaluation results of cuteSV in different SV size regions show as follow wit
 | 5001-10000bp |   139    |   140   |  67  |  197  | 0.413690 | 0.676328  | 0.513368 | 1.000000  |
 |   >10001bp   |    57    |   59    | 107  |  195  | 0.226190 | 0.355422  | 0.276449 | 1.000000  |
 
-The evaluation results of pbsv in different SV size regions show as follow with figures:
+The benchmarking results of pbsv in different SV size regions are shown as follows with figures:
 
 <div style="text-align: center;">
     <img src="img\evaluation_result_pbsv.png" alt="Performance comparison between different tools" style="display: inline-block; margin-right: 20px;" width="400"/>
@@ -274,7 +274,7 @@ The evaluation results of pbsv in different SV size regions show as follow with 
 | 5001-10000bp |   142    |   144   |  66  |  194  | 0.422619 | 0.685714  | 0.522940 | 1.000000  |
 |   >10001bp   |    52    |   55    |  93  |  200  | 0.206349 | 0.371622  | 0.265355 | 1.000000  |
 
-The evaluation results of Sniffles in different SV size regions show as follow with figures:
+The benchmarking results of Sniffles in different SV size regions are shown as follows with figures:
 
 <div style="text-align: center;">
     <img src="img\evaluation_result_Sniffles.png" alt="Performance comparison between different tools" style="display: inline-block; margin-right: 20px;" width="400"/>
@@ -294,7 +294,7 @@ The evaluation results of Sniffles in different SV size regions show as follow w
 | 5001-10000bp |   143    |   146   |  218  |  193  | 0.425595 | 0.401099  | 0.412984 | 1.000000  |
 |   >10001bp   |    62    |   71    |  393  |  190  | 0.246032 | 0.153017  | 0.188684 | 1.000000  |
 
-The evaluation results of SVIM in different SV size regions show as follow with figures:
+The benchmarking results of SVIM in different SV size regions are shown as follows with figures:
 
 <div style="text-align: center;">
     <img src="img\evaluation_result_SVIM.png" alt="Performance comparison between different tools" style="display: inline-block; margin-right: 20px;" width="400"/>
@@ -313,8 +313,8 @@ The SV reference region size statistics for benchmark set: Total SVs number：74
 
 (2) Statistics of the count of different SV lengths in the user-called set (ASVCLR):
 
-The SV reference region size statistics before filtering for user-called set (ASVCLR): Total SVs number：50674
-The SV reference region size statistics after filtering for user-called set (ASVCLR): Total SVs number：50674                                                                                          
+The SV reference region size statistics before filtering for the user-called set (ASVCLR): Total SVs number：50674
+The SV reference region size statistics after filtering for the user-called set (ASVCLR): Total SVs number：50674                                                                                          
 The result statistics before filtering are shown in the left figure, and the result statistics after filtering are shown in the right figure:
 
 <div style="text-align: center;">
@@ -326,8 +326,8 @@ The result statistics before filtering are shown in the left figure, and the res
 
 (3) Statistics of the count of different SV lengths in the user-called set (cuteSV):
 
-The SV reference region size statistics before filtering for user-called set (cuteSV): Total SVs number：44937
-The SV reference region size statistics after filtering for user-called set (cuteSV): Total SVs number：44928
+The SV reference region size statistics before filtering for the user-called set (cuteSV): Total SVs number：44937
+The SV reference region size statistics after filtering for the user-called set (cuteSV): Total SVs number：44928
 The result statistics before filtering are shown in the left figure, and the result statistics after filtering are shown in the right figure:
 
 <div style="text-align: center;">
@@ -339,8 +339,8 @@ The result statistics before filtering are shown in the left figure, and the res
 
 (4) Statistics of the count of different SV lengths in the user-called set (pbsv):
 
-The SV reference region size statistics before filtering for user-called set (pbsv): Total SVs number：52807
-The SV reference region size statistics after filtering for user-called set (pbsv): Total SVs number：52741
+The SV reference region size statistics before filtering for the user-called set (pbsv): Total SVs number：52807
+The SV reference region size statistics after filtering for the user-called set (pbsv): Total SVs number：52741
 The result statistics before filtering are shown in the left figure, and the result statistics after filtering are shown in the right figure:
 
 <div style="text-align: center;">
@@ -354,8 +354,8 @@ The result statistics before filtering are shown in the left figure, and the res
 
 (5) Statistics of the count of different SV lengths in the user-called set (Sniffles):
 
-The SV reference region size statistics before filtering for user-called set (Sniffles): Total SVs number：54545
-The SV reference region size statistics after filtering for user-called set (Sniffles): Total SVs number：54458
+The SV reference region size statistics before filtering for the user-called set (Sniffles): Total SVs number：54545
+The SV reference region size statistics after filtering for the user-called set (Sniffles): Total SVs number：54458
 The result statistics before filtering are shown in the left figure, and the result statistics after filtering are shown in the right figure:
 
 <div style="text-align: center;">
@@ -366,8 +366,8 @@ The result statistics before filtering are shown in the left figure, and the res
 
 (6) Statistics of the count of different SV lengths in the user-called set (SVIM):
 
-The SV reference region size statistics before filtering for user-called set (SVIM): Total SVs number：116615
-The SV reference region size statistics after filtering for user-called set (SVIM): Total SVs number：116427
+The SV reference region size statistics before filtering for the user-called set (SVIM): Total SVs number：116615
+The SV reference region size statistics after filtering for the user-called set (SVIM): Total SVs number：116427
 The result statistics before filtering are shown in the left figure, and the result statistics after filtering are shown in the right figure:
 
 <div style="text-align: center;">
@@ -375,7 +375,7 @@ The result statistics before filtering are shown in the left figure, and the res
     <img src="img\ref_reg_size_SVIM_after.png" alt="Benchmark results between different tools" width="400"/>
 </div>
 
- More detailed result information can be found in the `evaluation_report.html` after completing the assessment following the above steps.
+ More detailed result information can be found in the `sv_stat_reports.html` after completing the assessment following the above steps.
 
 ## Contact
 
