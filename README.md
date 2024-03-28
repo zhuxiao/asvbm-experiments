@@ -143,7 +143,7 @@ Typically, benchmarking results are saved within the `Tier1_eval` directory, wit
 
 The benchmarking results are shown in the table:
 
-|   Tool   |  SVs   | TP_benchmark | TP_user |  FP   |  FN   |  recall  | precision | F1  score |  Seqcons  |
+|   Tool   |  SVs   | TP_benchmark | TP_user |  FP   |  FN   |  recall  | precision | F1  score |  Identity  |
 | :------: | :----: | :----------: | :-----: | :---: | :---: | :------: | :-------: | :-------: | :-------: |
 |  ASVCLR  | 52857  |    45694     |  44180  | 8677  | 28318 | 0.617386 | 0.835840  | 0.710194  | 0.920133  |
 |  cuteSV  | 44937  |    39442     |  36955  | 6413  | 34570 | 0.532914 | 0.852126  | 0.655735  | 0.923026  |
@@ -151,7 +151,7 @@ The benchmarking results are shown in the table:
 | Sniffles | 54545  |    44983     |  43114  | 10160 | 29029 | 0.607780 | 0.809288  | 0.694207  | 0.924712  |
 |   SVIM   | 116615 |    48028     |  47230  | 30995 | 25984 | 0.648922 | 0.603771  | 0.625533  | 0.958158  |
 
-The figure below displays the benchmarking results of different detection methods, including two categories of basic metrics, where Seqcons represents the sequence consistency score calculated for matched SVs containing sequences.  Detailed statistics can be found in the corresponding text files within the respective folders.
+The figure below displays the benchmarking results of different detection methods, including two categories of basic metrics, where Seqcons represents the sequence identity calculated for matched SVs containing sequences.  Detailed statistics can be found in the corresponding text files within the respective folders.
 
 <div style="text-align: center;">
     <img src="img/evaluation_result.png" alt="Performance comparison between different tools" style="display: inline-block; margin-right: 20px;" width="400"/>
