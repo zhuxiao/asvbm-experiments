@@ -204,7 +204,7 @@ Variations are categorized into seven size regions and metrics are computed for 
 
 (2) Statistics of the count of different SV lengths in the user-called set (ASVCLR):
 
-|    region    | TP_bench | TP_user |  FP  |  FN   |  recall  | precision | F1 score |  Seqcons  |
+|    region    | TP_bench | TP_user |  FP  |  FN   |  recall  | precision | F1 score |  Identity  |
 | :----------: | :------: | :-----: | :--: | :---: | :------: | :-------: | :------: | :-------: |
 |   1-100bp    |  38240   |  36972  | 7288 | 25904 | 0.596159 | 0.835337  | 0.695766 | 0.920133  |
 |  101-250bp   |   2032   |  1870   | 972  | 1926  | 0.513391 | 0.657987  | 0.576764 | 0.992708  |
@@ -224,7 +224,7 @@ The benchmarking results of ASVCLR in different SV size regions are shown as fol
 
 (3) Statistics of the count of different SV lengths in the user-called set (cuteSV):
 
-|    region    | TP_bench | TP_user |  FP  |  FN   |  recall  | precision | F1 score |  Seqcons  |
+|    region    | TP_bench | TP_user |  FP  |  FN   |  recall  | precision | F1 score |  Identity  |
 | :----------: | :------: | :-----: | :--: | :---: | :------: | :-------: | :------: | :-------: |
 |   1-100bp    |  33438   |  31461  | 5502 | 30706 | 0.521296 | 0.851148  | 0.646584 | 0.912347  |
 |  101-250bp   |   1865   |  1683   | 549  | 2093  | 0.471198 | 0.754032  | 0.579970 | 1.000000  |
@@ -244,7 +244,7 @@ The benchmarking results of cuteSV in different SV size regions are shown as fol
 
 (3) Statistics of the count of different SV lengths in the user-called set (pbsv):
 
-|    region    | TP_bench | TP_user |  FP  |  FN   |  recall  | precision | F1 score |  Seqcons  |
+|    region    | TP_bench | TP_user |  FP  |  FN   |  recall  | precision | F1 score |  Identity  |
 | :----------: | :------: | :-----: | :--: | :---: | :------: | :-------: | :------: | :-------: |
 |   1-100bp    |  37343   |  35360  | 7614 | 26801 | 0.582174 | 0.822823  | 0.681890 | 0.962946  |
 |  101-250bp   |   1970   |  1792   | 1855 | 1988  | 0.497726 | 0.491363  | 0.494524 | 1.000000  |
@@ -264,7 +264,7 @@ The benchmarking results of pbsv in different SV size regions are shown as follo
 
 (4) Statistics of the count of different SV lengths in the user-called set (Sniffles):
 
-|    region    | TP_bench | TP_user |  FP  |  FN   |  recall  | precision | F1 score |  Seqcons  |
+|    region    | TP_bench | TP_user |  FP  |  FN   |  recall  | precision | F1 score |  Identity  |
 | :----------: | :------: | :-----: | :--: | :---: | :------: | :-------: | :------: | :-------: |
 |   1-100bp    |  38459   |  36520  | 9296 | 25685 | 0.599573 | 0.797101  | 0.684369 | 0.914315  |
 |  101-250bp   |   2096   |  1926   | 592  | 1862  | 0.529560 | 0.764893  | 0.625835 | 1.000000  |
@@ -284,7 +284,7 @@ The benchmarking results of Sniffles in different SV size regions are shown as f
 
 (4) Statistics of the count of different SV lengths in the user-called set (SVIM):
 
-|    region    | TP_bench | TP_user |  FP   |  FN   |  recall  | precision | F1 score |  Seqcons  |
+|    region    | TP_bench | TP_user |  FP   |  FN   |  recall  | precision | F1 score |  Identity  |
 | :----------: | :------: | :-----: | :---: | :---: | :------: | :-------: | :------: | :-------: |
 |   1-100bp    |  41223   |  39159  | 26170 | 22921 | 0.642663 | 0.599412  | 0.620285 | 0.952275  |
 |  101-250bp   |   2138   |  1954   | 2506  | 1820  | 0.540172 | 0.438117  | 0.483821 | 1.000000  |
