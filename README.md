@@ -151,7 +151,7 @@ The benchmarking results are shown in the table:
 | Sniffles | 54545  |    44983     |  43114  | 10160 | 29029 | 0.607780 | 0.809288  | 0.694207  | 0.924712  |
 |   SVIM   | 116615 |    48028     |  47230  | 30995 | 25984 | 0.648922 | 0.603771  | 0.625533  | 0.958158  |
 
-The figure below displays the benchmarking results of different detection methods, including two categories of basic metrics, where Seqcons represents the sequence identity calculated for matched SVs containing sequences.  Detailed statistics can be found in the corresponding text files within the respective folders.
+The figure below displays the benchmarking results of different detection methods, including two categories of basic metrics, where Identity represents the sequence identity calculated for matched SVs containing sequences.  Detailed statistics can be found in the corresponding text files within the respective folders.
 
 <div style="text-align: center;">
     <img src="img/evaluation_result.png" alt="Performance comparison between different tools" style="display: inline-block; margin-right: 20px;" width="400"/>
