@@ -1,5 +1,5 @@
 # SV_STAT experiment
-In our experiments, we used the high accuracy of the PacBio sequencing platform in CCS mode, combined with NGMLR's alignment capability for long-read data and 30X the coverage depth. This approach provides a well-balanced strategy for detecting variants. The identification results of HG002 CCS data were benchmarked using ASVCLR(v1.4.0), cuteSV (v2.0.3), pbsv (v2.9.0), Sniffles2 (v2.0.2) and SVIM(v2.0.0), respectively. The benchmark dataset was the high-confidence HG002 dataset created by the Genome in a Bottle Consortium (GIAB). More specific experimental information was shown as follows.
+In our experiments, we used the high accuracy of the PacBio sequencing platform in CCS mode, combined with NGMLR's alignment capability for long-read data and 30X the coverage depth. This approach provides a well-balanced strategy for detecting variants. The identification results of HG002 CCS data were benchmarked using ASVCLR(v1.4.0), SVDSS (v2.0.0), Debreak (v2.0.3), Sniffles2 (v2.0.2), pbsv (v2.9.0), cuteSV (v2.0.3), and SVIM(v2.0.0), respectively. The benchmark dataset was the high-confidence HG002 dataset created by the Genome in a Bottle Consortium (GIAB). More specific experimental information was shown as follows.
 ## Prerequisites
 
 ### Tools
@@ -7,15 +7,15 @@ In our experiments, we used the high accuracy of the PacBio sequencing platform 
 We used  [SV_STAT](https://github.com/zhuxiao/sv_stat) to benchmark variant calling results.
 
 ```sh
-$ wget -c https://github.com/zhuxiao/sv_stat/releases/download/1.0.0/sv_stat_1.0.0.tar.xz
-$ tar -xf sv_stat_1.0.0.tar.xz
-$ cd sv_stat_1.0.0/
+$ wget -c https://github.com/zhuxiao/sv_stat/releases/download/1.0.1/sv_stat_1.0.1.tar.xz
+$ tar -xf sv_stat_1.0.1.tar.xz
+$ cd sv_stat_1.0.1/
 $ ./autogen.sh
 ```
 
 And the binary file `sv_stat` will be output into the folder `bin` in this package directory.
 
-We used the following detection methods to variant calling. In addition to the variation detection method included in this experiment, we also introduced a new variation detection tool ASVCLR and benchmarked its variation identification results.
+We used the following detection methods to variant calling. In addition to the SV detection method included in this experiment, we also introduced a new SV detection tool ASVCLR and benchmarked its SV identification results.
 
 ```sh
 # Get ASVCLR 
@@ -33,8 +33,15 @@ $ ./auto_gen.sh
 And the binary file `asvclr` will be output into the folder `bin` in this package directory.
 
 ```sh
-# Get cuteSV pbsv sniffles svim and samtools
-$ conda install cuteSV=2.0.3 pbsv=2.9.0 sniffles=2.2 svim=2.0.0 samtools  
+# Get SVDSS v2.0.0-alpha.1
+$ wget -c https://github.com/Parsoa/SVDSS/archive/refs/tags/v2.0.0-alpha.1.tar.gz
+$ tar -zxvf SVDSS-2.0.0-alpha.1.tar.gz
+$ cd SVDSS
+$ mkdir build ; cd build
+$ cmake -DCMAKE_BUILD_TYPE=Release ..
+$ make
+# Get DeBreak cuteSV pbsv sniffles svim and samtools
+$ conda install debreak=2.0.3 cuteSV=2.0.3 pbsv=2.9.0 sniffles2=2.0.2 svim=2.0.0 samtools  
 # We need ngmlr v0.2.7 to align fasta or fastq with reference
 $ wget https://github.com/philres/ngmlr/releases/download/v0.2.7/ngmlr-0.2.7-linux-x86_64.tar.gz
 $ tar xvzf ngmlr-0.2.7-linux-x86_64.tar.gz
@@ -101,6 +108,15 @@ More  detailed usage of ASVCLR can be obtained from Github ([ASVCLR](https://git
 You can get variant detection results in folder `4_results` and variant detection results are reported in VCF file format in this file folder: `genome_variants.vcf`.
 
 ```sh
+#SVDSS
+$ SVDSS index --threads 12 --reference hs37d5.fa --index hs37d5.fmd
+$ SVDSS smooth --threads 12 --reference hs37d5.fa --bam ngmlr_HG002_hs37d5_pacbio_ccs_ash_sorted.bam > ngmlr_HG002_hs37d5_pacbio_ccs_ash_sorted_smoothed.bam
+$ samtools index ngmlr_HG002_hs37d5_pacbio_ccs_ash_sorted_smoothed.bam
+$ SVDSS search --threads 12 --index hs37d5.fmd --bam ngmlr_HG002_hs37d5_pacbio_ccs_ash_sorted_smoothed.bam > specifics.txt
+$ SVDSS call --threads 12 --reference hs37d5.fa --bam ngmlr_HG002_hs37d5_pacbio_ccs_ash_sorted_smoothed.bam --sfs specifics.txt > output_SVDSS.vcf
+# DeBreak
+$ debreak --thread 12 --min_size 20 --bam ngmlr_HG002_hs37d5_pacbio_ccs_ash_sorted.bam --outpath output_debreak_hs37d5_ngmlr --rescue_large_ins --poa --ref hs37d5.fa 
+$ cd output_debreak_hs37d5_ngmlr && mv debreak.vcf output_DebBeak.vcf
 # cuteSV
 $ cuteSV -t 12 -l 20 --genotype HG002_pacbio_ccs_sorted.bam hs37d5.chroms.fa output_cuteSV.vcf $PWD
 # pbsv
@@ -110,14 +126,17 @@ $ pbsv call -m 20 --ccs hs37d5.chroms.fa ref.out.svsig.gz output_pbsv.vcf
 $ sniffles --minsvlen 20 -i HG002_pacbio_ccs_sorted.bam -v output_Sniffles.vcf
 # svim
 $ svim alignment --min_sv_size 20 --sample HG002_CCS_30X HG002_pacbio_ccs_sorted.bam hs37d5.chroms.fa
+$ mv variants.vcf output_SVIM.vcf
 ```
 
 You can get the following four results:
 
 * **ASVCLR** : `genome_variants.vcf`
+* **SVDSS** : `output_SVDSS.vcf`
+* **DeBreak** : `output_DeBreak.vcf`
 * **cuteSV** : `output_cuteSV.vcf`
 * **pbsv** : `output_pbsv.vcf`
-* **Sniffles** : `output_sniffles.vcf`
+* **Sniffles2** : `output_sniffles2.vcf`
 * **SVIM** : `variants.vcf`
 
 ## GIAB analysis
@@ -130,10 +149,10 @@ $ wget https://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/data/AshkenazimTrio/analysis/
 $ gunzip HG002_SVs_Tier1_v0.6.vcf.gz
 
 # Run sv_stat against the Tier1 callset and SV_STAT can benchmark multiple user-called sets simultaneously.
-$ sv_stat -m 50000 -T "ASVCLR;cuteSV;pbsv;Sniffles2;SVIM" -C "1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16;17;18;19;20;21;22;X;Y" genome_variants.vcf output_cuteSV.vcf output_pbsv.vcf output_sniffles.vcf variants.vcf hs37d5.chroms.fa -o Tier1_eval
+$ sv_stat -m 50000 -T "ASVCLR;SVDSS;DeBreak;Sniffles2;pbsv;cuteSV;SVIM" -C "1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16;17;18;19;20;21;22;X;Y" genome_variants.vcf output_SVDSS.vcf output_DeBreak.vcf output_sniffles2.vcf output_pbsv.vcf output_cuteSV.vcf output_SVIM.vcf hs37d5.chroms.fa -o Tier1_eval
 ```
 
-We used -T option to specify the name of the detection method and -C option to specify the set of chromosomes to be benchmarked.  In this experiment, we benchmarked the autosomes and sex chromosomes X/Y in the variation Identification results of different detection methods.
+We used -T option to specify the name of the detection method and -C option to specify the set of chromosomes to be benchmarked.  In this experiment, we benchmarked the autosomes and sex chromosomes X/Y in the SV Identification results of different detection methods.
 
 ## Benchmarking results
 
@@ -145,11 +164,13 @@ The benchmarking results are shown in the table:
 
 |   Tool   |  SVs   | TP_benchmark | TP_user |  FP   |  FN   |  recall  | precision | F1  score |  Identity  |
 | :------: | :----: | :----------: | :-----: | :---: | :---: | :------: | :-------: | :-------: | :-------: |
-|  ASVCLR  | 52857  |    45694     |  44180  | 8677  | 28318 | 0.617386 | 0.835840  | 0.710194  | 0.920133  |
-|  cuteSV  | 44937  |    39442     |  36955  | 6413  | 34570 | 0.532914 | 0.852126  | 0.655735  | 0.923026  |
-|   pbsv   | 52807  |    44494     |  42927  | 9253  | 29518 | 0.601173 | 0.822672  | 0.694694  | 0.967705  |
-| Sniffles | 54545  |    44983     |  43114  | 10160 | 29029 | 0.607780 | 0.809288  | 0.694207  | 0.924712  |
-|   SVIM   | 116615 |    48028     |  47230  | 30995 | 25984 | 0.648922 | 0.603771  | 0.625533  | 0.958158  |
+|  ASVCLR  | 54423  |    45986     |  45807  | 8616  | 28026 | 0.621332 | 0.841685  | 0.714914  | 0.973949  |
+|  SVDSS   | 45787  |    34689     |  37221  | 8566  | 39328 | 0.468627 | 0.812916  | 0.594524  | 0.977113  |
+| DeBreak  | 49868  |    43644     |  41248  | 7565  | 30368 | 0.589688 | 0.845021  | 0.694634  | 0.936123  |
+| Sniffles2| 54545  |    44973     |  43106  | 10168 | 29039 | 0.607645 | 0.809138  | 0.694063  | 0.973332  |
+|   pbsv   | 52807  |    44492     |  42927  | 9253  | 29520 | 0.601146 | 0.822672  | 0.694676  | 0.983104  |
+|  cuteSV  | 44937  |    39438     |  36952  | 6416  | 34574 | 0.532860 | 0.852057  | 0.655674  | 0.975145  |
+|   SVIM   | 116615 |    48022     |  47230  | 30995 | 25990 | 0.648841 | 0.603771  | 0.625459  | 0.979929  |
 
 The figure below displays the benchmarking results of different detection methods, including two categories of basic metrics, where Identity represents the sequence identity calculated for matched SVs containing sequences.  Detailed statistics can be found in the corresponding text files within the respective folders.
 
@@ -160,9 +181,9 @@ The figure below displays the benchmarking results of different detection method
 
 
 
-### Statistical results of deviation of overlapping variation
+### Statistical results of deviation of overlapping variants
 
-Moreover, for regions with overlapping variations, the quantities of  region size ratio and center distance were statistically analyzed to  provide a more intuitive presentation of benchmarking information. The statistical results are as follows:
+Moreover, for regions with overlapping variant, the quantities of  region size ratio and center distance were statistically analyzed to  provide a more intuitive presentation of benchmarking information. The statistical results are as follows:
 
 (1) Deviation statistics of center distance
 
@@ -170,11 +191,13 @@ The statistical results of the deviation of center distance are as follows：
 
 |   Tool   | -200~-151 | -150~-101 | -100~-51 | -50~-1 | 0~50  | 51~100 | 101~150 | 151~200 |
 | :------: | :-------: | :-------: | :------: | :----: | :---: | :----: | :-----: | :-----: |
-|  ASVCLR  |    248    |    402    |   725    |  5682  | 29455 |  4281  |  2144   |  1468   |
-|  cuteSV  |    203    |    345    |   696    |  5255  | 25892 |  3471  |  1689   |  1178   |
-|   pbsv   |    358    |    501    |   795    |  5123  | 31030 |  2546  |  1756   |  1382   |
-| Sniffles |    355    |    469    |   781    |  3732  | 31630 |  4556  |  2043   |  1462   |
-|   SVIM   |    602    |    809    |   1283   |  6325  | 33782 |  4056  |  2535   |  2007   |
+|  ASVCLR  |    241    |    358    |   756    |  6408  | 31364 |  4160  |  1924   |  1313   |
+|  SVDSS   |    281    |    373    |   902    |  5463  | 27417 |  2188  |  1520   |  1122   |
+|  DeBreak |    278    |    451    |   849    |  3435  | 31649 |  3741  |  1546   |   963   |
+| Sniffles2|    276    |    355    |   646    |  3154  | 32890 |  4559  |  2006   |  1394   |
+|   pbsv   |    288    |    438    |   812    |  5027  | 32552 |  2314  |  1476   |  1071   |
+|  cuteSV  |    182    |    276    |   604    |  4750  | 27134 |  3410  |  1541   |  1107   |
+|   SVIM   |    553    |    686    |   1159   |  5988  | 35797 |  3855  |  2291   |  1737   |
 
 (2) Deviation statistics of the region size ratio
 
@@ -182,11 +205,13 @@ The statistical results of the deviation of the region size ratio are as follows
 
 |   Tool   | 0.0~0.5 | 0.5~0.7 | 0.7~1.2 | 1.2~2.0 | 2.0~5.0 | 5.0~10.0 | 10.0~50.0 | 50.0~100.0 | >100.0 |
 | :------: | :-----: | :-----: | :-----: | :-----: | :-----: | :------: | :-------: | :--------: | :----: |
-|  ASVCLR  |  4373   |   398   |  41354  |   612   |   584   |    168    |    857    |    460     |  3178  |
-|  cuteSV  |  3883   |   290   |  37294  |   500   |   417   |    81    |    553    |    255     |  1738  |
-|   pbsv   |  4499   |   458   |  36190  |   721   |   715   |   175    |   4452    |    1329    |  3498  |
-| Sniffles |  5184   |   442   |  43846  |   604   |   509   |   133    |    633    |    254     |  1701  |
-|   SVIM   |  8441   |   574   |  46891  |   691   |   750   |   265    |   1261    |    704     |  4842  |
+|  ASVCLR  |  2885   |   773   |  46869  |   1287   |   1222   |    306    |    248    |    31     |  23  |
+|   SVDSS  |  2874   |   737   |  39357  |   1186   |   1330   |    283    |    154    |    6     |  6  |
+|  DeBreak |  2559   |   657   |  40170  |   2723   |   1841   |    456    |    292    |    21     |  40  |
+| Sniffles2 |  3257   |   752   |  46170  |   1244   |   1236   |    342    |    231    |    31     |  43  |
+|   pbsv   |  3500   |   840   |  43660  |   1724   |   1489   |   401    |   321    |    40    |  62  |
+| cuteSV |  2916   |   615   |  39079  |   1039   |   934   |   213    |    175    |    16     |  24  |
+|   SVIM   |  7184   |   1303   |  51061  |   1730   |   1752   |   607    |   524    |    85     |  173  |
 
 
 ### Benchmarking results for metrics of different SV size regions
@@ -195,7 +220,7 @@ Additionally, basic metrics for different structural variant (SV) size ranges we
 
 (1) Benchmarking results for metrics of different SV size regions with different methods
 
-Variations are categorized into seven size regions and metrics are computed for comprehensive benchmarking of different detection methods within each region. The benchmarking results are as follows:
+SVs are categorized into seven size regions and metrics are computed for comprehensive benchmarking of different detection methods within each region. The benchmarking results are as follows:
 
 <div style="text-align: center;">
     <img src="img\different_range.png" alt="Evaluation results of different SV size regions" style="display: inline-block; margin: 0 auto; text-align: center;" width="800"/>
@@ -206,13 +231,13 @@ Variations are categorized into seven size regions and metrics are computed for 
 
 |    region    | TP_bench | TP_user |  FP  |  FN   |  recall  | precision | F1 score |  Identity  |
 | :----------: | :------: | :-----: | :--: | :---: | :------: | :-------: | :------: | :-------: |
-|   1-100bp    |  38240   |  36972  | 7288 | 25904 | 0.596159 | 0.835337  | 0.695766 | 0.920133  |
-|  101-250bp   |   2032   |  1870   | 972  | 1926  | 0.513391 | 0.657987  | 0.576764 | 0.992708  |
-|  251-500bp   |   1701   |  1662   | 1504 | 1271  | 0.572342 | 0.524953  | 0.547624 | 0.995176  |
+|   1-100bp    |  38704   |  38369  | 7279 | 25440 | 0.603392 | 0.840635  | 0.702525 | 0.972428  |
+|  101-250bp   |   2050   |  1889   | 968  | 1908  | 0.517938 | 0.661183  | 0.580860 | 0.992270  |
+|  251-500bp   |   1707   |  1669   | 1481 | 1265  | 0.572342 | 0.524953  | 0.547624 | 0.995352  |
 |  501-1000bp  |   364    |   358   | 870  |  748  | 0.327338 | 0.291531  | 0.308399 | 0.996147  |
 | 1001-5000bp  |   577    |   578   | 439  |  661  | 0.466074 | 0.568338  | 0.512151 | 0.999387  |
 | 5001-10000bp |   138    |   138   |  116  |  198  | 0.410714 | 0.543307 | 0.467797 | 1.000000  |
-|   >10001bp   |    44    |   44    |  46  |  208  | 0.174603 | 0.488889  | 0.257310 | 1.000000  |
+|   >10001bp   |    45    |   44    |  42  |  207  | 0.174603 | 0.488889  | 0.257310 | 1.000000  |
 
 The benchmarking results of ASVCLR in different SV size regions are shown as follows with figures:
 
@@ -221,8 +246,84 @@ The benchmarking results of ASVCLR in different SV size regions are shown as fol
     <img src="img\result_classification_ASVCLR.png" alt="Benchmark results between different tools" style="display: inline-block;" width="400"/>
 </div>
 
+(3) Statistics of the count of different SV lengths in the user-called set (SVDSS):
 
-(3) Statistics of the count of different SV lengths in the user-called set (cuteSV):
+|    region    | TP_bench | TP_user |  FP  |  FN   |  recall  | precision | F1 score |  Identity  |
+| :----------: | :------: | :-----: | :--: | :---: | :------: | :-------: | :------: | :-------: |
+|   1-100bp    |  29479   |  31916  | 8150 | 34665 | 0.459575 | 0.796586  | 0.582873 | 0.973558  |
+|  101-250bp   |   2086   |  2126   | 428  | 1872  | 0.527034 | 0.832420  | 0.645426 | 1.000000  |
+|  251-500bp   |   1728   |  1869   | 159 | 1244  | 0.581427 | 0.921598  | 0.713018 | 1.000000  |
+|  501-1000bp  |   406    |   433   | 75  |  706  | 0.365108 | 0.852362  | 0.511231 | 1.000000  |
+| 1001-5000bp  |   558    |   590   | 41  |  680  | 0.450727 | 0.935024  | 0.608264 | 1.000000 |
+| 5001-10000bp |   0    |   0   |  0  |  0  | 0 | 0 | 0 | 0  |
+|   >10001bp   |     0    |   0   |  0  |  0  | 0 | 0 | 0 | 0  |
+
+The benchmarking results of ASVCLR in different SV size regions are shown as follows with figures:
+
+<div style="text-align: center;">
+    <img src="img\evaluation_result_SVDSS.png" alt="Performance comparison between different tools" style="display: inline-block; margin-right: 20px;" width="400"/>
+    <img src="img\result_classification_SVDSS.png" alt="Benchmark results between different tools" style="display: inline-block;" width="400"/>
+</div>
+
+(4) Statistics of the count of different SV lengths in the user-called set (DeBreak):
+
+|    region    | TP_bench | TP_user |  FP  |  FN   |  recall  | precision | F1 score |  Identity  |
+| :----------: | :------: | :-----: | :--: | :---: | :------: | :-------: | :------: | :-------: |
+|   1-100bp    |  31287   |  29770  | 5756 | 32857 | 0.487762 | 0.837978  | 0.616612 | 0.930387  |
+|  101-250bp   |   2014   |  1843   | 3658  | 1944  | 0.508843 | 0.335030  | 0.404036 | 0.999851  |
+|  251-500bp   |   1743   |  1699   | 2963 | 1229  | 0.586474 | 0.364436  | 0.449532 | 0.999830  |
+|  501-1000bp  |   421    |   410   | 1165  |  691  | 0.378597 | 0.260317  | 0.308509 | 0.998064  |
+| 1001-5000bp  |   613    |   598   | 625  |  625  | 0.495153 | 0.488962  | 0.492038 | 1.000000 |
+| 5001-10000bp |   137    |   138   |  33  |  199  | 0.407738 | 0.807018 | 0.541758 | 1.000000  |
+|   >10001bp   |     58    |   59   |  96  |  194  | 0.230159 | 0.380645 | 0.286864 | 1.000000  |
+
+The benchmarking results of ASVCLR in different SV size regions are shown as follows with figures:
+
+<div style="text-align: center;">
+    <img src="img\evaluation_result_DeBreak.png" alt="Performance comparison between different tools" style="display: inline-block; margin-right: 20px;" width="400"/>
+    <img src="img\result_classification_DeBreak.png" alt="Benchmark results between different tools" style="display: inline-block;" width="400"/>
+</div>
+
+(5) Statistics of the count of different SV lengths in the user-called set (Sniffles2):
+
+|    region    | TP_bench | TP_user |  FP  |  FN   |  recall  | precision | F1 score |  Identity  |
+| :----------: | :------: | :-----: | :--: | :---: | :------: | :-------: | :------: | :-------: |
+|   1-100bp    |  38459   |  36520  | 9296 | 25685 | 0.599573 | 0.797101  | 0.684369 | 0.914315  |
+|  101-250bp   |   2096   |  1926   | 592  | 1862  | 0.529560 | 0.764893  | 0.625835 | 1.000000  |
+|  251-500bp   |   1737   |  1699   | 1072 | 1235  | 0.584455 | 0.613136  | 0.598452 | 1.000000  |
+|  501-1000bp  |   416    |   413   | 524  |  696  | 0.374101 | 0.440768  | 0.404707 | 1.000000  |
+| 1001-5000bp  |   615    |   616   | 258  |  623  | 0.496769 | 0.704805  | 0.582778 | 1.000000  |
+| 5001-10000bp |   142    |   144   |  66  |  194  | 0.422619 | 0.685714  | 0.522940 | 1.000000  |
+|   >10001bp   |    52    |   55    |  93  |  200  | 0.206349 | 0.371622  | 0.265355 | 1.000000  |
+
+The benchmarking results of Sniffles2 in different SV size regions are shown as follows with figures:
+
+<div style="text-align: center;">
+    <img src="img\evaluation_result_Sniffles.png" alt="Performance comparison between different tools" style="display: inline-block; margin-right: 20px;" width="400"/>
+    <img src="img\result_classification_Sniffles.png" alt="Benchmark results between different tools" style="display: inline-block;" width="400"/>
+</div>
+
+
+(6) Statistics of the count of different SV lengths in the user-called set (pbsv):
+
+|    region    | TP_bench | TP_user |  FP  |  FN   |  recall  | precision | F1 score |  Identity  |
+| :----------: | :------: | :-----: | :--: | :---: | :------: | :-------: | :------: | :-------: |
+|   1-100bp    |  37343   |  35360  | 7614 | 26801 | 0.582174 | 0.822823  | 0.681890 | 0.962946  |
+|  101-250bp   |   1970   |  1792   | 1855 | 1988  | 0.497726 | 0.491363  | 0.494524 | 1.000000  |
+|  251-500bp   |   1656   |  1618   | 1609 | 1316  | 0.557201 | 0.501395  | 0.527827 | 1.000000  |
+|  501-1000bp  |   355    |   351   | 738  |  757  | 0.319245 | 0.322314  | 0.320772 | 1.000000  |
+| 1001-5000bp  |   591    |   582   | 288  |  647  | 0.477383 | 0.668966  | 0.557165 | 1.000000  |
+| 5001-10000bp |   139    |   140   |  67  |  197  | 0.413690 | 0.676328  | 0.513368 | 1.000000  |
+|   >10001bp   |    57    |   59    | 107  |  195  | 0.226190 | 0.355422  | 0.276449 | 1.000000  |
+
+The benchmarking results of pbsv in different SV size regions are shown as follows with figures:
+
+<div style="text-align: center;">
+    <img src="img\evaluation_result_pbsv.png" alt="Performance comparison between different tools" style="display: inline-block; margin-right: 20px;" width="400"/>
+    <img src="img\result_classification_pbsv.png" alt="Benchmark results between different tools" style="display: inline-block;" width="400"/>
+</div>
+
+(7) Statistics of the count of different SV lengths in the user-called set (cuteSV):
 
 |    region    | TP_bench | TP_user |  FP  |  FN   |  recall  | precision | F1 score |  Identity  |
 | :----------: | :------: | :-----: | :--: | :---: | :------: | :-------: | :------: | :-------: |
@@ -242,47 +343,8 @@ The benchmarking results of cuteSV in different SV size regions are shown as fol
 </div>
 
 
-(3) Statistics of the count of different SV lengths in the user-called set (pbsv):
 
-|    region    | TP_bench | TP_user |  FP  |  FN   |  recall  | precision | F1 score |  Identity  |
-| :----------: | :------: | :-----: | :--: | :---: | :------: | :-------: | :------: | :-------: |
-|   1-100bp    |  37343   |  35360  | 7614 | 26801 | 0.582174 | 0.822823  | 0.681890 | 0.962946  |
-|  101-250bp   |   1970   |  1792   | 1855 | 1988  | 0.497726 | 0.491363  | 0.494524 | 1.000000  |
-|  251-500bp   |   1656   |  1618   | 1609 | 1316  | 0.557201 | 0.501395  | 0.527827 | 1.000000  |
-|  501-1000bp  |   355    |   351   | 738  |  757  | 0.319245 | 0.322314  | 0.320772 | 1.000000  |
-| 1001-5000bp  |   591    |   582   | 288  |  647  | 0.477383 | 0.668966  | 0.557165 | 1.000000  |
-| 5001-10000bp |   139    |   140   |  67  |  197  | 0.413690 | 0.676328  | 0.513368 | 1.000000  |
-|   >10001bp   |    57    |   59    | 107  |  195  | 0.226190 | 0.355422  | 0.276449 | 1.000000  |
-
-The benchmarking results of pbsv in different SV size regions are shown as follows with figures:
-
-<div style="text-align: center;">
-    <img src="img\evaluation_result_pbsv.png" alt="Performance comparison between different tools" style="display: inline-block; margin-right: 20px;" width="400"/>
-    <img src="img\result_classification_pbsv.png" alt="Benchmark results between different tools" style="display: inline-block;" width="400"/>
-</div>
-
-
-(4) Statistics of the count of different SV lengths in the user-called set (Sniffles):
-
-|    region    | TP_bench | TP_user |  FP  |  FN   |  recall  | precision | F1 score |  Identity  |
-| :----------: | :------: | :-----: | :--: | :---: | :------: | :-------: | :------: | :-------: |
-|   1-100bp    |  38459   |  36520  | 9296 | 25685 | 0.599573 | 0.797101  | 0.684369 | 0.914315  |
-|  101-250bp   |   2096   |  1926   | 592  | 1862  | 0.529560 | 0.764893  | 0.625835 | 1.000000  |
-|  251-500bp   |   1737   |  1699   | 1072 | 1235  | 0.584455 | 0.613136  | 0.598452 | 1.000000  |
-|  501-1000bp  |   416    |   413   | 524  |  696  | 0.374101 | 0.440768  | 0.404707 | 1.000000  |
-| 1001-5000bp  |   615    |   616   | 258  |  623  | 0.496769 | 0.704805  | 0.582778 | 1.000000  |
-| 5001-10000bp |   142    |   144   |  66  |  194  | 0.422619 | 0.685714  | 0.522940 | 1.000000  |
-|   >10001bp   |    52    |   55    |  93  |  200  | 0.206349 | 0.371622  | 0.265355 | 1.000000  |
-
-The benchmarking results of Sniffles in different SV size regions are shown as follows with figures:
-
-<div style="text-align: center;">
-    <img src="img\evaluation_result_Sniffles.png" alt="Performance comparison between different tools" style="display: inline-block; margin-right: 20px;" width="400"/>
-    <img src="img\result_classification_Sniffles.png" alt="Benchmark results between different tools" style="display: inline-block;" width="400"/>
-</div>
-
-
-(4) Statistics of the count of different SV lengths in the user-called set (SVIM):
+(8) Statistics of the count of different SV lengths in the user-called set (SVIM):
 
 |    region    | TP_bench | TP_user |  FP   |  FN   |  recall  | precision | F1 score |  Identity  |
 | :----------: | :------: | :-----: | :---: | :---: | :------: | :-------: | :------: | :-------: |
@@ -301,9 +363,9 @@ The benchmarking results of SVIM in different SV size regions are shown as follo
     <img src="img\result_classification_SVIM.png" alt="Benchmark results between different tools" style="display: inline-block;" width="400"/>
 </div>
 
-### Quantitative distribution statistics of variation
+### Quantitative distribution statistics of variants
 
-Additionally, the distribution of the number of variations in the reference set and  user-called set was statistically analyzed, as shown below:
+Additionally, the distribution of the number of variants in the reference set and  user-called set was statistically analyzed, as shown below:
 
 (1) Statistics of the count of different SV lengths in the benchmark set:
 The SV reference region size statistics for benchmark set: Total SVs number：74012
@@ -320,24 +382,43 @@ The result statistics before filtering are shown in the left figure, and the res
 <div style="text-align: center;">
     <img src="img\ref_reg_size_ASVCLR_before.png" alt="Performance comparison between different tools"  style="display: inline-block; margin-right: 20px;" width="400"/>
     <img src="img\ref_reg_size_ASVCLR_after.png" alt="Benchmark results between different tools" width="400"/>
-</div>                                                                                                            
+</div> 
 
+(3) Statistics of the count of different SV lengths in the user-called set (SVDSS):
 
-
-(3) Statistics of the count of different SV lengths in the user-called set (cuteSV):
-
-The SV reference region size statistics before filtering for the user-called set (cuteSV): Total SVs number：44937
-The SV reference region size statistics after filtering for the user-called set (cuteSV): Total SVs number：44928
+The SV reference region size statistics before filtering for the user-called set (ASVCLR): Total SVs number：50674
+The SV reference region size statistics after filtering for the user-called set (ASVCLR): Total SVs number：50674                                                                                          
 The result statistics before filtering are shown in the left figure, and the result statistics after filtering are shown in the right figure:
 
 <div style="text-align: center;">
-    <img src="img\ref_reg_size_cuteSV_before.png" alt="Performance comparison between different tools" style="display: inline-block; margin-right: 20px;" width="400"/>
-    <img src="img\ref_reg_size_cuteSV_after.png" alt="Benchmark results between different tools" width="400"/>
+    <img src="img\ref_reg_size_SVDSS_before.png" alt="Performance comparison between different tools"  style="display: inline-block; margin-right: 20px;" width="400"/>
+    <img src="img\ref_reg_size_SVDSS_after.png" alt="Benchmark results between different tools" width="400"/>
+</div>
+
+(4) Statistics of the count of different SV lengths in the user-called set (DeBreak):
+
+The SV reference region size statistics before filtering for the user-called set (ASVCLR): Total SVs number：50674
+The SV reference region size statistics after filtering for the user-called set (ASVCLR): Total SVs number：50674                                                                                          
+The result statistics before filtering are shown in the left figure, and the result statistics after filtering are shown in the right figure:
+
+<div style="text-align: center;">
+    <img src="img\ref_reg_size_DeBreak_before.png" alt="Performance comparison between different tools"  style="display: inline-block; margin-right: 20px;" width="400"/>
+    <img src="img\ref_reg_size_DeBreak_after.png" alt="Benchmark results between different tools" width="400"/>
+</div>
+
+(5) Statistics of the count of different SV lengths in the user-called set (Sniffles2):
+
+The SV reference region size statistics before filtering for the user-called set (Sniffles2): Total SVs number：54545
+The SV reference region size statistics after filtering for the user-called set (Sniffles2): Total SVs number：54458
+The result statistics before filtering are shown in the left figure, and the result statistics after filtering are shown in the right figure:
+
+<div style="text-align: center;">
+    <img src="img\ref_reg_size_Sniffles_before.png" alt="Performance comparison between different tools" style="display: inline-block; margin-right: 20px;" width="400"/>
+    <img src="img\ref_reg_size_Sniffles_after.png" alt="Benchmark results between different tools" width="400"/>
 </div>
 
 
-
-(4) Statistics of the count of different SV lengths in the user-called set (pbsv):
+(6) Statistics of the count of different SV lengths in the user-called set (pbsv):
 
 The SV reference region size statistics before filtering for the user-called set (pbsv): Total SVs number：52807
 The SV reference region size statistics after filtering for the user-called set (pbsv): Total SVs number：52741
@@ -350,21 +431,21 @@ The result statistics before filtering are shown in the left figure, and the res
  
 </div>
 
+(7) Statistics of the count of different SV lengths in the user-called set (cuteSV):
 
-
-(5) Statistics of the count of different SV lengths in the user-called set (Sniffles):
-
-The SV reference region size statistics before filtering for the user-called set (Sniffles): Total SVs number：54545
-The SV reference region size statistics after filtering for the user-called set (Sniffles): Total SVs number：54458
+The SV reference region size statistics before filtering for the user-called set (cuteSV): Total SVs number：44937
+The SV reference region size statistics after filtering for the user-called set (cuteSV): Total SVs number：44928
 The result statistics before filtering are shown in the left figure, and the result statistics after filtering are shown in the right figure:
 
 <div style="text-align: center;">
-    <img src="img\ref_reg_size_Sniffles_before.png" alt="Performance comparison between different tools" style="display: inline-block; margin-right: 20px;" width="400"/>
-    <img src="img\ref_reg_size_Sniffles_after.png" alt="Benchmark results between different tools" width="400"/>
+    <img src="img\ref_reg_size_cuteSV_before.png" alt="Performance comparison between different tools" style="display: inline-block; margin-right: 20px;" width="400"/>
+    <img src="img\ref_reg_size_cuteSV_after.png" alt="Benchmark results between different tools" width="400"/>
 </div>
 
 
-(6) Statistics of the count of different SV lengths in the user-called set (SVIM):
+
+
+(8) Statistics of the count of different SV lengths in the user-called set (SVIM):
 
 The SV reference region size statistics before filtering for the user-called set (SVIM): Total SVs number：116615
 The SV reference region size statistics after filtering for the user-called set (SVIM): Total SVs number：116427
