@@ -100,7 +100,8 @@ $ rm -rf HG002_pacbio_ccs.sam HG002_pacbio_ccs.bam
 
 ```sh
 # ASVCLR
-$ asvclr all -t 12 -m 20 hs37d5.chroms.fa HG002_pacbio_ccs_sorted.bam -o output_asvclr
+$ asvclr all -m 20 -p hg002_hs37d5_ngmlr_asvclr -o output_debug_hs37d5_q0_20240408 hs37d5.fa ngmlr_HG002_hs37d5_pacbio_ccs_sorted.bam
+$ mv hg002_hs37d5_ngmlr_asvclr_variants.vcf output_ASVCLR.vcf
 ```
 
 More  detailed usage of ASVCLR can be obtained from Github ([ASVCLR](https://github.com/zhuxiao/asvclr)).
@@ -131,13 +132,13 @@ $ mv variants.vcf output_SVIM.vcf
 
 You can get the following four results:
 
-* **ASVCLR** : `genome_variants.vcf`
+* **ASVCLR** : `output_ASVCLR.vcf`
 * **SVDSS** : `output_SVDSS.vcf`
 * **DeBreak** : `output_DeBreak.vcf`
 * **cuteSV** : `output_cuteSV.vcf`
 * **pbsv** : `output_pbsv.vcf`
 * **Sniffles2** : `output_sniffles2.vcf`
-* **SVIM** : `variants.vcf`
+* **SVIM** : `output_SVIM.vcf`
 
 ## GIAB analysis
 
