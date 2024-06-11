@@ -261,7 +261,7 @@ The benchmarking results of ASVCLR in different SV size regions are shown as fol
 | 5001-10000bp |   0    |   0   |  0  |  0  | 0 | 0 | 0 | 0  |
 |   >10001bp   |     0    |   0   |  0  |  0  | 0 | 0 | 0 | 0  |
 
-The benchmarking results of ASVCLR in different SV size regions are shown as follows with figures:
+The benchmarking results of SVDSS in different SV size regions are shown as follows with figures:
 
 <div style="text-align: center;">
     <img src="img\evaluation_result_SVDSS.png" alt="Performance comparison between different tools" style="display: inline-block; margin-right: 20px;" width="400"/>
@@ -281,7 +281,7 @@ The benchmarking results of ASVCLR in different SV size regions are shown as fol
 | 5001-10000bp |   137    |   138   |  33  |  199  | 0.407738 | 0.807018 | 0.541758 | 1.000000  |
 |   >10001bp   |     58    |   59   |  96  |  194  | 0.230159 | 0.380645 | 0.286864 | 1.000000  |
 
-The benchmarking results of ASVCLR in different SV size regions are shown as follows with figures:
+The benchmarking results of DeBreak in different SV size regions are shown as follows with figures:
 
 <div style="text-align: center;">
     <img src="img\evaluation_result_DeBreak.png" alt="Performance comparison between different tools" style="display: inline-block; margin-right: 20px;" width="400"/>
