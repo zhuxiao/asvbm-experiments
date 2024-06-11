@@ -1,5 +1,5 @@
 # SV_STAT experiment
-In our experiments, we used the high accuracy of the PacBio sequencing platform in CCS mode, combined with NGMLR's alignment capability for long-read data and 30X the coverage depth. This approach provides a well-balanced strategy for detecting variants. The identification results of HG002 CCS data were benchmarked using ASVCLR(v1.4.0), SVDSS (v2.0.0), Debreak (v2.0.3), Sniffles2 (v2.0.2), pbsv (v2.9.0), cuteSV (v2.0.3), and SVIM(v2.0.0), respectively. The benchmark dataset was the high-confidence HG002 dataset created by the Genome in a Bottle Consortium (GIAB). More specific experimental information was shown as follows.
+In our experiments, we used the high accuracy of the PacBio sequencing platform in CCS mode, combined with NGMLR's alignment capability for long-read data and 30X the coverage depth. This approach provides a well-balanced strategy for detecting variants. The identification results of HG002 CCS data were benchmarked using ASVCLR(v1.4.1), SVDSS (v2.0.0), Debreak (v2.0.3), Sniffles2 (v2.0.2), pbsv (v2.9.0), cuteSV (v2.0.3), and SVIM(v2.0.0), respectively. The benchmark dataset was the high-confidence HG002 dataset created by the Genome in a Bottle Consortium (GIAB). More specific experimental information was shown as follows.
 ## Prerequisites
 
 ### Tools
@@ -19,14 +19,14 @@ We used the following detection methods to variant calling. In addition to the S
 
 ```sh
 # Get ASVCLR 
-$ wget -c https://github.com/zhuxiao/asvclr/releases/download/1.4.0/asvclr_1.4.0.tar.xz
-$ tar -xf asvclr_1.4.0.tar.xz
-$ cd asvclr_1.4.0/
+$ wget -c https://github.com/zhuxiao/asvclr/releases/download/1.4.1/asvclr_1.4.1.tar.xz
+$ tar -xf asvclr_1.4.1.tar.xz
+$ cd asvclr_1.4.1/
 $ ./auto_gen.sh
 # Or get from github
 $ git clone https://github.com/zhuxiao/asvclr.git
-$ tar -xf asvclr_1.4.0.tar.xz
-$ cd asvclr_1.4.0/
+$ tar -xf asvclr_1.4.1.tar.xz
+$ cd asvclr_1.4.1/
 $ ./auto_gen.sh
 ```
 
@@ -130,7 +130,7 @@ $ svim alignment --min_sv_size 20 --sample HG002_CCS_30X HG002_pacbio_ccs_sorted
 $ mv variants.vcf output_SVIM.vcf
 ```
 
-You can get the following four results:
+You can get the following seven results. Identification results are saved within the `Identification_result` directory:
 
 * **ASVCLR** : `output_ASVCLR.vcf`
 * **SVDSS** : `output_SVDSS.vcf`
