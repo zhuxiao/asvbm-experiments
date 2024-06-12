@@ -15,7 +15,7 @@ $ ./autogen.sh
 
 And the binary file `sv_stat` will be output into the folder `bin` in this package directory.
 
-We used the following detection methods to variant calling. In addition to the SV detection method included in this experiment, we also introduced a new SV detection tool ASVCLR and benchmarked its SV identification results.
+We used the following detection methods for variant calling. In addition to the SV detection method included in this experiment, we also introduced a new SV detection tool ASVCLR, and benchmarked its SV identification results.
 
 ```sh
 # Get ASVCLR 
@@ -66,7 +66,7 @@ $ ln -s fastq-dump /usr/local/bin/fastq-dump
 $ ln -s fasterq-dump /usr/local/bin/fasterq-dump
 ```
 
-And the binary file `prefetch`、 `fastq-dump`  and `fasterq-dump` will be output into the folder `bin` in this package directory.
+And the binary files `prefetch`、 `fastq-dump`  and `fasterq-dump` will be output into the folder `bin` in this package directory.
 
 ### Data
 
@@ -84,7 +84,7 @@ $ samtools faidx hs37d5.fa 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21
 
 ## HG002
 
-Download [HG002 PacBio CCS](https://www.ncbi.nlm.nih.gov/sra/SRX5327410) data.  After aligning with ngmlr, convert them into bam files using samtools, sort and create index. For convenience, we provide a shell script and a list of accessions to help you obtain the fastq file (see `script` folder). Significantly, you need to ensure that the file and the script are in the same folder.
+Download [HG002 PacBio CCS](https://www.ncbi.nlm.nih.gov/sra/SRX5327410) data.  After aligning with ngmlr, convert them into bam files using samtools, sort and create index. For convenience, we provide a shell script and a list of accessions to help you obtain the fastq file (see the `script` folder). Significantly, you need to ensure that the file and the script are in the same folder.
 
 ```sh
 $ ./prefetch_fastq.sh SRR_Acc_List.txt SRR885_whole.fastq
@@ -153,7 +153,7 @@ $ gunzip HG002_SVs_Tier1_v0.6.vcf.gz
 $ sv_stat -m 50000 -T "ASVCLR;SVDSS;DeBreak;Sniffles2;pbsv;cuteSV;SVIM" -C "1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16;17;18;19;20;21;22;X;Y" genome_variants.vcf output_SVDSS.vcf output_DeBreak.vcf output_sniffles2.vcf output_pbsv.vcf output_cuteSV.vcf output_SVIM.vcf hs37d5.chroms.fa -o Tier1_eval
 ```
 
-We used -T option to specify the name of the detection method and -C option to specify the set of chromosomes to be benchmarked.  In this experiment, we benchmarked the autosomes and sex chromosomes X/Y in the SV Identification results of different detection methods.
+We used -T option to specify the name of the detection method and the -C option to specify the set of chromosomes to be benchmarked.  In this experiment, we benchmarked the autosomes and sex chromosomes X/Y in the SV Identification results of different detection methods.
 
 ## Benchmarking results
 
@@ -342,7 +342,7 @@ The benchmarking results of pbsv in different SV size regions are shown as follo
 | 5001-10000bp |   113    |   113   |  18  |  223  | 0.336310 | 0.862595  | 0.483940 | 1.000000  |
 |   >10001bp   |    39    |   40    |  43  |  213  | 0.154762 | 0.481925  | 0.235287 | 1.000000  |
 
-The benchmarking results of cuteSV in different SV size regions are shown as follow with figures:
+The benchmarking results of cuteSV in different SV size regions are shown as follows with figures:
 
 <div style="text-align: center;">
     <img src="img\evaluation_result_cuteSV.png" alt="Performance comparison between different tools" style="display: inline-block; margin-right: 20px;" width="400"/>
