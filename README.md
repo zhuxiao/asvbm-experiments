@@ -1,19 +1,23 @@
-# SV_STAT experiment
+# ASVBM experiment
 In our experiments, we used the high accuracy of the PacBio sequencing platform in CCS mode, combined with NGMLR's alignment capability for long-read data and 30X the coverage depth. This approach provides a well-balanced strategy for detecting variants. The identification results of HG002 CCS data were benchmarked using ASVCLR(v1.4.1), SVDSS (v2.0.0), Debreak (v2.0.3), Sniffles2 (v2.0.2), pbsv (v2.9.0), cuteSV (v2.0.3), and SVIM(v2.0.0), respectively. The benchmark dataset was the high-confidence HG002 dataset created by the Genome in a Bottle Consortium (GIAB). More specific experimental information was shown as follows.
 ## Prerequisites
 
 ### Tools
 
-We used  [SV_STAT](https://github.com/zhuxiao/sv_stat) to benchmark variant calling results.
+We used  [ASVBM](https://github.com/zhuxiao/asvbm) to benchmark variant calling results.
 
 ```sh
-$ wget -c https://github.com/zhuxiao/sv_stat/releases/download/1.0.1/sv_stat_1.0.1.tar.xz
-$ tar -xf sv_stat_1.0.1.tar.xz
-$ cd sv_stat_1.0.1/
+$ wget -c https://github.com/zhuxiao/asvbm/releases/download/1.0.1/ASVBM_1.0.1.tar.xz
+$ tar -xf ASVBM_1.0.1.tar.xz
+$ cd ASVBM_1.0.1/
 $ ./autogen.sh
+$ sudo apt install -y r-base r-base-dev
+# Install the UpSetR package
+$ R
+$ install.packages("UpSetR")
 ```
 
-And the binary file `sv_stat` will be output into the folder `bin` in this package directory.
+And the binary file `ASVBM` will be output into the folder `bin` in this package directory.
 
 We used the following detection methods for variant calling. In addition to the SV detection method included in this experiment, we also introduced a new SV detection tool ASVCLR, and benchmarked its SV identification results.
 
@@ -149,8 +153,8 @@ In this experiment, we used HG002_SVs_Tier1_v0.6.vcf as the gold benchmark set r
 $ wget https://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/data/AshkenazimTrio/analysis/NIST_SVs_Integration_v0.6/HG002_SVs_Tier1_v0.6.vcf.gz
 $ gunzip HG002_SVs_Tier1_v0.6.vcf.gz
 
-# Run sv_stat against the Tier1 callset and SV_STAT can benchmark multiple user-called sets simultaneously.
-$ sv_stat -m 50000 -T "ASVCLR;SVDSS;DeBreak;Sniffles2;pbsv;cuteSV;SVIM" -C "1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16;17;18;19;20;21;22;X;Y" output_ASVCLR.vcf output_SVDSS.vcf output_DeBreak.vcf output_sniffles2.vcf output_pbsv.vcf output_cuteSV.vcf output_SVIM.vcf hs37d5.chroms.fa -o Tier1_eval
+# Run ASVBM against the Tier1 callset and ASVBM can benchmark multiple user-called sets simultaneously.
+$ ASVBM -m 50000 -T "ASVCLR;SVDSS;DeBreak;Sniffles2;pbsv;cuteSV;SVIM" -C "1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16;17;18;19;20;21;22;X;Y" output_ASVCLR.vcf output_SVDSS.vcf output_DeBreak.vcf output_sniffles2.vcf output_pbsv.vcf output_cuteSV.vcf output_SVIM.vcf hs37d5.chroms.fa -o Tier1_eval
 ```
 
 We used -T option to specify the name of the detection method and the -C option to specify the set of chromosomes to be benchmarked.  In this experiment, we benchmarked the autosomes and sex chromosomes X/Y in the SV Identification results of different detection methods.
@@ -159,7 +163,7 @@ We used -T option to specify the name of the detection method and the -C option 
 
 ### Performance benchmarking
 
-Typically, benchmarking results are saved within the `Tier1_eval` directory, with each tool's results saved in the subfolder named after the respective tool.  Additionally, a local HTML file (`sv_stat_reports.html`) is generated to store the benchmarking results for each user-called set. Review the comprehensive benchmarking results more conveniently through the `sv_stat_reports.pdf` file.
+Typically, benchmarking results are saved within the `Tier1_eval` directory, with each tool's results saved in the subfolder named after the respective tool.  Additionally, a local HTML file (`asvbm_reports.html`) is generated to store the benchmarking results for each user-called set. Review the comprehensive benchmarking results more conveniently through the `asvbm_reports.pdf` file.
 
 The benchmarking results are shown in the table:
 
@@ -463,7 +467,7 @@ The result statistics before filtering are shown in the left figure, and the res
     <img src="img\ref_reg_size_SVIM_after.png" alt="Benchmark results between different tools" width="400"/>
 </div>
 
- More detailed result information can be found in the `sv_stat_reports.html` after completing the assessment following the above steps.
+ More detailed result information can be found in the `ASVBM_reports.html` after completing the assessment following the above steps.
 
 ## Contact
 
