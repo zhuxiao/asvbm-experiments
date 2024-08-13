@@ -384,6 +384,8 @@ The statistical results of the SV distribution across multiple user sets are sho
 <img src="img\sv_distribution.png" alt= "sv distribution" style="display: inline-block; margin: 0 auto;" width="800"> 
 </div>
 
+(II) Distribution of SV of benchmark set and user callsets
+
 Additionally, the distribution of the number of variants in the reference set and  user-called set was statistically analyzed, as shown below:
 
 (1) Statistics of the count of different SV lengths in the benchmark set:
