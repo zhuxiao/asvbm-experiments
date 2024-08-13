@@ -478,6 +478,7 @@ The result statistics before filtering are shown in the left figure, and the res
  
 ### SharedFN and RefinedBenchmark
 Furthermore, ASVBM generated shared FN records from all the user callsets to provide valuable insights for revising the benchmark set, since these shared FN records typically contain low-quality or complex variants in the benchmark set. The result information can be found in `Tier1_eval` under `SharedFN_RefinedBenchmark` as `bench_low_quality_variant.vcf`.
+
 Finally, after removing low-quality variants from the SharedFN in the benchmark set, a more confident benchmark file is obtained. The results are saved in `Tier1_eval` under `SharedFN_RefinedBenchmark` as `Refined_benchmark.vcf`.
 
 ## Contact
