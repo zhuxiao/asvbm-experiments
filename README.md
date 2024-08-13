@@ -381,7 +381,7 @@ The benchmarking results of SVIM in different SV size regions are shown as follo
 (I) Distribution of SV of multiple user callsets
 The statistical results of the SV distribution across multiple user sets are shown in the figure below:
 <div align="center">
-<img src="img\sv_distribution.png" alt= "sv distribution" style="display: inline-block; margin: 0 auto;" width="800"> 
+<img src="img\sv_distribution.png" alt= "sv distribution" style="display: inline-block; margin: 0 auto;" width="650"> 
 </div>
 
 (II) Distribution of SV of benchmark set and user callsets
