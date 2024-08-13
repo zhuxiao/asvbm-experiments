@@ -378,13 +378,19 @@ The benchmarking results of SVIM in different SV size regions are shown as follo
 </div>
 
 ### Quantitative distribution statistics of variants
+(I) Distribution of SV of multiple user callsets
+The statistical results of the SV distribution across multiple user sets are shown in the figure below:
+<div style="text-align: center;">
+    <img src="img\evaluation_result_SVIM.png" alt="Performance comparison between different tools" style="display: inline-block; margin-right: 20px;" width="400"/>
+    <img src="img\result_classification_SVIM.png" alt="Benchmark results between different tools" style="display: inline-block;" width="800"/>
+</div>
 
 Additionally, the distribution of the number of variants in the reference set and  user-called set was statistically analyzed, as shown below:
 
 (1) Statistics of the count of different SV lengths in the benchmark set:
 The SV reference region size statistics for benchmark set: Total SVs number：74012
 <div align="center">
-<img src="img\ref_reg_size_benchmark.png" alt= "ref_reg_size_benchmark" style="display: inline-block; margin: 0 auto;" width="450"> 
+<img src="img\sv_distribution.png" alt= "sv distribution" style="display: inline-block; margin: 0 auto;" width="450"> 
 </div>
 
 (2) Statistics of the count of different SV lengths in the user-called set (ASVCLR):
