@@ -7,9 +7,9 @@ In our experiments, we used the high accuracy of the PacBio sequencing platform 
 We used  [ASVBM](https://github.com/zhuxiao/asvbm) to benchmark variant calling results.
 
 ```sh
-$ wget -c https://github.com/zhuxiao/asvbm/releases/download/1.1.0/asvbm_1.1.0.tar.xz
-$ tar -xf asvbm_1.1.0.tar.xz
-$ cd asvbm_1.1.0/
+$ wget -c https://github.com/zhuxiao/asvbm/releases/download/1.2.0/asvbm_1.2.0.tar.xz
+$ tar -xf asvbm_1.2.0.tar.xz
+$ cd asvbm_1.2.0/
 $ ./autogen.sh
 $ sudo apt install -y r-base r-base-dev
 # Install the UpSetR package
