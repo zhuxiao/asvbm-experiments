@@ -154,10 +154,10 @@ $ wget https://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/data/AshkenazimTrio/analysis/
 $ gunzip HG002_SVs_Tier1_v0.6.vcf.gz
 
 # Run ASVBM against the Tier1 callset and ASVBM can benchmark multiple user-called sets simultaneously.
-$ ASVBM -m 50000 -p 0.7 -T "ASVCLR;SVDSS;DeBreak;Sniffles2;pbsv;cuteSV;SVIM" -C "1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16;17;18;19;20;21;22;X;Y" output_ASVCLR.vcf output_SVDSS.vcf output_DeBreak.vcf output_sniffles2.vcf output_pbsv.vcf output_cuteSV.vcf output_SVIM.vcf hs37d5.chroms.fa -o Tier1_eval
+$ asvbm -m 50000 -i 0.7 -p 0.7 -T "ASVCLR;SVDSS;DeBreak;Sniffles2;pbsv;cuteSV;SVIM" -C "1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16;17;18;19;20;21;22;X;Y" output_ASVCLR.vcf output_SVDSS.vcf output_DeBreak.vcf output_sniffles2.vcf output_pbsv.vcf output_cuteSV.vcf output_SVIM.vcf hs37d5.chroms.fa -o Tier1_eval
 ```
 
-We used `-T` option to specify the name of the detection method and the `-C` option to specify the set of chromosomes to be benchmarked. We conducted benchmarking using the `-p` parameter, aligning with the thresholds provided by the Genome in a Bottle (GIAB) consortium. In this experiment, we benchmarked the autosomes and sex chromosomes X/Y in the SV Identification results of different detection methods.
+We used `-T` option to specify the name of the detection method and the `-C` option to specify the set of chromosomes to be benchmarked. We conducted benchmarking using the `-i` parameter, aligning with the thresholds provided by the Genome in a Bottle (GIAB) consortium. In this experiment, we benchmarked the autosomes and sex chromosomes X/Y in the SV Identification results of different detection methods.
 
 ## Benchmarking results
 
